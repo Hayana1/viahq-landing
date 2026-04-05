@@ -7,7 +7,6 @@ import {
   UseCasesPage,
   WhoWeServePage,
   ResourcesPage,
-  PricingPage,
 } from './pages'
 
 /* ─────────────────────────────────────────
@@ -137,7 +136,7 @@ function CtaPixelButton({ label = "Let's go", onClick }) {
 /* ─────────────────────────────────────────
    NAVBAR
 ───────────────────────────────────────── */
-const NAV_PAGES = ['Solutions', 'Use cases', 'Who we serve', 'Resources', 'Pricing']
+const NAV_PAGES = ['Solutions', 'Use cases', 'Who we serve', 'Resources']
 
 function Navbar({ onNav, onBooking }) {
   const [open, setOpen] = useState(false)
@@ -158,7 +157,7 @@ function Navbar({ onNav, onBooking }) {
             <li key={item}>
               <button onClick={() => handleNav(item)}>
                 {item}
-                {item !== 'Pricing' && (
+                {(
                   <svg className="nav-chevron" viewBox="0 0 14 14" fill="none">
                     <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -669,7 +668,7 @@ function GlobalPlatformSection({ onBooking }) {
             <span>Your first analysis ready in minutes.</span>
           </p>
           <div className="platform-cta-actions">
-            <CtaPixelButton label="Start for free" onClick={onBooking} />
+            <CtaPixelButton label="Book a demo" onClick={onBooking} />
             <button className="btn-outline-dark" onClick={onBooking}>See a live demo</button>
           </div>
         </div>
@@ -953,7 +952,7 @@ function CtaBannerSection({ onBooking }) {
           <div className="cta-banner-actions">
             <CtaPixelButton label="Let's go" onClick={onBooking} />
             <button className="btn-hero-outline" onClick={onBooking}>See a live demo</button>
-            <p className="cta-banner-note">No commitment · Free first analysis</p>
+            <p className="cta-banner-note">No commitment · 30-minute live demo</p>
           </div>
         </div>
       </div>
@@ -1051,7 +1050,7 @@ const FOOTER_COLS = [
   },
   {
     heading: 'Resources',
-    links: ['Help Center', 'Documentation', 'Security', 'Compliance', 'Webinars', 'Pricing'],
+    links: ['Help Center', 'Documentation', 'Security', 'Compliance', 'Webinars'],
   },
 ]
 
@@ -1062,7 +1061,6 @@ const FOOTER_PAGE_MAP = {
   'Prioritize purchasing': 'Use cases', 'Segment customers': 'Use cases',
   'Prepare sales reviews': 'Use cases',
   'Help Center': 'Resources', 'Documentation': 'Resources', 'Webinars': 'Resources',
-  'Pricing': 'Pricing',
   'Contact': 'booking',
 }
 
@@ -1130,7 +1128,6 @@ export default function App() {
     if (page === 'Use cases')     return <UseCasesPage   onNav={setPage} onBooking={openBooking} />
     if (page === 'Who we serve')  return <WhoWeServePage onNav={setPage} onBooking={openBooking} />
     if (page === 'Resources')     return <ResourcesPage  onNav={setPage} onBooking={openBooking} />
-    if (page === 'Pricing')       return <PricingPage    onNav={setPage} onBooking={openBooking} />
     return null
   }
 
