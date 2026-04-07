@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import { Waves } from './components/wave-background'
+import { useT, useLang } from './LangContext'
 import {
   BookingPage,
   SolutionsPage,
@@ -136,49 +137,53 @@ function CtaPixelButton({ label = "Let's go", onClick }) {
 /* ─────────────────────────────────────────
    NAVBAR
 ───────────────────────────────────────── */
-const NAV_PAGES = ['Solutions', 'Use cases', 'Who we serve', 'Resources']
-
 function Navbar({ onNav, onBooking }) {
   const [open, setOpen] = useState(false)
+  const t = useT()
+  const [lang, setLang] = useLang()
 
-  function handleNav(item) {
-    onNav(item)
+  function handleNav(key) {
+    onNav(key)
     setOpen(false)
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function toggleLang() {
+    setLang(l => l === 'en' ? 'fr' : 'en')
   }
 
   return (
     <nav className="navbar">
       <div className="container navbar-inner">
-        <button className="nav-logo" onClick={() => onNav(null)}>via.</button>
+        <button className="nav-logo" onClick={() => onNav(null)}>
+          <span className="nav-logo-text">via.</span>
+        </button>
 
         <ul className="nav-links">
-          {NAV_PAGES.map(item => (
-            <li key={item}>
-              <button onClick={() => handleNav(item)}>
-                {item}
-                {(
-                  <svg className="nav-chevron" viewBox="0 0 14 14" fill="none">
-                    <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                )}
+          {t.nav.pages.map(({ key, label }) => (
+            <li key={key}>
+              <button onClick={() => handleNav(key)}>
+                {label}
+                <svg className="nav-chevron" viewBox="0 0 14 14" fill="none">
+                  <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </button>
             </li>
           ))}
         </ul>
 
         <div className="nav-actions">
-          <span className="nav-lang">
+          <button className="nav-lang" onClick={toggleLang}>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.3"/>
               <path d="M7 1C7 1 5 4 5 7C5 10 7 13 7 13" stroke="currentColor" strokeWidth="1.3"/>
               <path d="M7 1C7 1 9 4 9 7C9 10 7 13 7 13" stroke="currentColor" strokeWidth="1.3"/>
               <path d="M1 7H13" stroke="currentColor" strokeWidth="1.3"/>
             </svg>
-            EN
-          </span>
-          <button className="nav-login" onClick={onBooking}>Log in</button>
-          <button className="btn-demo" onClick={onBooking}>Request a demo</button>
+            {lang === 'en' ? 'FR' : 'EN'}
+          </button>
+          <button className="nav-login" onClick={onBooking}>{t.nav.login}</button>
+          <button className="btn-demo" onClick={onBooking}>{t.nav.demo}</button>
         </div>
 
         <button className="nav-burger" onClick={() => setOpen(o => !o)} aria-label="Menu">
@@ -197,13 +202,13 @@ function Navbar({ onNav, onBooking }) {
       {open && (
         <div className="nav-mobile-menu">
           <ul className="nav-mobile-links">
-            {NAV_PAGES.map(item => (
-              <li key={item}><button onClick={() => handleNav(item)}>{item}</button></li>
+            {t.nav.pages.map(({ key, label }) => (
+              <li key={key}><button onClick={() => handleNav(key)}>{label}</button></li>
             ))}
           </ul>
           <div className="nav-mobile-actions">
-            <button className="nav-login" onClick={onBooking}>Log in</button>
-            <button className="btn-demo" onClick={onBooking}>Request a demo</button>
+            <button className="nav-login" onClick={onBooking}>{t.nav.login}</button>
+            <button className="btn-demo" onClick={onBooking}>{t.nav.demo}</button>
           </div>
         </div>
       )}
@@ -214,26 +219,10 @@ function Navbar({ onNav, onBooking }) {
 /* ─────────────────────────────────────────
    HERO TESTIMONIAL AUTO-SCROLL
 ───────────────────────────────────────── */
-const HERO_TESTIS = [
-  {
-    company: 'Groupe Lefebvre Distribution',
-    quote: '"Via gave us in two hours what we\'d been trying to calculate for weeks in Excel."',
-    author: '— Sales Director, Lefebvre Distribution',
-  },
-  {
-    company: 'Groupe Techni-Pro',
-    quote: '"We used to spend two days a month on this. Now it\'s 20 minutes, and we can actually see where to act."',
-    author: '— Purchasing Manager, Groupe Techni-Pro',
-  },
-  {
-    company: 'Delta Fournitures',
-    quote: '"Via identified $180K in dormant stock we weren\'t seeing. We recovered that cash in six weeks."',
-    author: '— Managing Director, Delta Fournitures',
-  },
-]
-
 function HeroTestiCard() {
   const [idx, setIdx] = useState(0)
+  const tr = useT()
+  const HERO_TESTIS = tr.heroTestis
   const [paused, setPaused] = useState(false)
   const timerRef = useRef(null)
 
@@ -363,6 +352,7 @@ function HeroSlideshow() {
 }
 
 function HeroSection({ onBooking }) {
+  const t = useT()
   return (
     <div className="hero-wrapper">
       <div className="container">
@@ -376,16 +366,16 @@ function HeroSection({ onBooking }) {
             />
             <div className="hero-left-content">
             <div className="hero-chip">
-              No integration required. Import your first file now.
+              {t.hero.chip}
               <span className="hero-chip-arrow">›</span>
             </div>
             <h1 className="hero-h1">
-              Your ERP exports<br />into clear<br />decisions,<br /><em>in minutes.</em>
+              {t.hero.h1}<br /><em>{t.hero.h1em}</em>
             </h1>
             <p className="hero-sub">
-              Margin, stock, and clients for B2B distributors. No ERP to replace. No IT project. Just clarity.
+              {t.hero.sub}
             </p>
-            <CtaPixelButton label="Let's go" onClick={onBooking} />
+            <CtaPixelButton label={t.hero.cta} onClick={onBooking} />
             </div>
           </div>
 
@@ -421,20 +411,7 @@ const LOGOS = [
 ]
 
 function LogosSection() {
-  return (
-    <div className="logos-section">
-      <p className="logos-label container">
-        Used by sales and purchasing teams across B2B distribution
-      </p>
-      <div className="container">
-        <div className="logos-grid">
-          {LOGOS.map((l, i) => (
-            <div key={i} className="logo-item" style={l.style}>{l.name}</div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
+  return null
 }
 
 /* ─────────────────────────────────────────
@@ -613,47 +590,19 @@ function TrendUI() {
   )
 }
 
-const PRODUCT_CARDS = [
-  {
-    title: 'Via Margin',
-    sub: 'Identify the products destroying your margin.',
-    UI: MarginUI,
-  },
-  {
-    title: 'Via Stock',
-    sub: 'Spot the capital tied up in dormant inventory.',
-    UI: StockUI,
-  },
-  {
-    title: 'Via Clients',
-    sub: 'See which segments and accounts are slowing down.',
-    UI: ClientUI,
-  },
-  {
-    title: 'Via Categories',
-    sub: 'Compare performance by product family.',
-    UI: CategoryUI,
-  },
-  {
-    title: 'Via Alerts',
-    sub: 'Prioritize your next sales and purchasing actions.',
-    UI: AlertUI,
-  },
-  {
-    title: 'Via Trends',
-    sub: 'Track margin evolution year over year.',
-    UI: TrendUI,
-  },
-]
+const PRODUCT_UIS = [MarginUI, StockUI, ClientUI, CategoryUI, AlertUI, TrendUI]
 
 function GlobalPlatformSection({ onBooking }) {
+  const t = useT()
+  const cards = t.cards.map((c, i) => ({ ...c, UI: PRODUCT_UIS[i] }))
+
   return (
     <section className="platform-section">
       <div className="container">
-        <p className="section-label">What Via does</p>
-        <h2 className="section-heading">The decision layer for B2B distribution</h2>
+        <p className="section-label">{t.platform.label}</p>
+        <h2 className="section-heading">{t.platform.heading}</h2>
         <div className="cards-grid">
-          {PRODUCT_CARDS.map(({ title, sub, UI }) => (
+          {cards.map(({ title, sub, UI }) => (
             <div key={title} className="product-card">
               <h3 className="card-title">{title}</h3>
               <p className="card-sub">{sub}</p>
@@ -664,12 +613,12 @@ function GlobalPlatformSection({ onBooking }) {
 
         <div className="platform-cta">
           <p className="platform-cta-text">
-            Six modules. One upload.<br />
-            <span>Your first analysis ready in minutes.</span>
+            {t.platform.ctaText1}<br />
+            <span>{t.platform.ctaText2}</span>
           </p>
           <div className="platform-cta-actions">
-            <CtaPixelButton label="Book a demo" onClick={onBooking} />
-            <button className="btn-outline-dark" onClick={onBooking}>See a live demo</button>
+            <CtaPixelButton label={t.platform.ctaDemo} onClick={onBooking} />
+            <button className="btn-outline-dark" onClick={onBooking}>{t.platform.ctaLive}</button>
           </div>
         </div>
       </div>
@@ -680,54 +629,24 @@ function GlobalPlatformSection({ onBooking }) {
 /* ─────────────────────────────────────────
    SPEED SECTION
 ───────────────────────────────────────── */
-const SPEED_TABS = [
-  {
-    id: 'margin', icon: <IconCrosshair />, label: 'Via Margin',
-    cardBg: '#FFF8E6', cardBorder: '#EDE0B0',
-    steps: [
-      { col: 'Now',           card: 'Import your ERP sales file' },
-      { col: 'A few minutes', card: 'Negative-margin products are identified' },
-      { col: 'Today',         card: 'Fix pricing on 3 key references' },
-    ],
-  },
-  {
-    id: 'stock', icon: <IconBox />, label: 'Via Stock',
-    cardBg: '#EFF6FF', cardBorder: '#BFDBFE',
-    steps: [
-      { col: 'Now',           card: 'Load your inventory export' },
-      { col: 'A few minutes', card: '$240K in dormant stock highlighted' },
-      { col: 'This week',     card: 'Launch a targeted destocking action' },
-    ],
-  },
-  {
-    id: 'clients', icon: <IconUsers />, label: 'Via Clients',
-    cardBg: '#F0FDF4', cardBorder: '#BBF7D0',
-    steps: [
-      { col: 'Now',           card: 'Add your clients and orders file' },
-      { col: 'A few minutes', card: '7 declining accounts detected automatically' },
-      { col: 'This week',     card: 'Re-engage the right accounts at the right time' },
-    ],
-  },
-  {
-    id: 'purchasing', icon: <IconCart />, label: 'Via Purchasing',
-    cardBg: '#F5F0FF', cardBorder: '#D8C9FB',
-    steps: [
-      { col: 'Now',           card: 'Cross-reference sales and stock in one upload' },
-      { col: 'A few minutes', card: 'Stockout and overstock risks identified' },
-      { col: 'Today',         card: 'Prioritize your 5 urgent supplier orders' },
-    ],
-  },
-]
+const SPEED_ICONS = {
+  margin: <IconCrosshair />,
+  stock: <IconBox />,
+  clients: <IconUsers />,
+  purchasing: <IconCart />,
+}
 
 function SpeedSection() {
+  const t = useT()
   const [active, setActive] = useState('stock')
-  const tab = SPEED_TABS.find(t => t.id === active)
+  const SPEED_TABS = t.speed.tabs.map(tab => ({ ...tab, icon: SPEED_ICONS[tab.id] }))
+  const tab = SPEED_TABS.find(tb => tb.id === active)
 
   return (
     <section className="speed-section">
       <div className="container">
-        <p className="section-label">Via Speed</p>
-        <h2 className="section-heading">From raw export to clear decision in minutes</h2>
+        <p className="section-label">{t.speed.label}</p>
+        <h2 className="section-heading">{t.speed.heading}</h2>
 
         <div className="speed-tabs">
           {SPEED_TABS.map(t => (
@@ -768,46 +687,34 @@ function SpeedSection() {
 /* ─────────────────────────────────────────
    MODERN EXPERIENCE SECTION
 ───────────────────────────────────────── */
-const FEATURES = [
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="16 16 12 12 8 16"/>
-        <line x1="12" y1="12" x2="12" y2="21"/>
-        <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
-      </svg>
-    ),
-    title: <><em>Compatible with every ERP</em> on the market</>,
-    body: 'Sage, SAP, Cegid, Dynamics, Divalto — simply import your CSV or Excel export. No integration, no connector.',
-    link: 'Learn more',
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
-      </svg>
-    ),
-    title: <><em>Automatic analysis engine</em> on your data</>,
-    body: 'Via cross-references sales, stock, and clients to give you priorities, not tables. Fewer wasted hours, more actions.',
-    link: 'Learn more',
-  },
-  {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-      </svg>
-    ),
-    title: <><em>Built for field teams</em></>,
-    body: 'Designed for sales directors, buyers, and managers who live in Excel and want results without an IT project.',
-    link: 'Request a demo',
-  },
+const FEATURE_ICONS = [
+  (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="16 16 12 12 8 16"/>
+      <line x1="12" y1="12" x2="12" y2="21"/>
+      <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+    </svg>
+  ),
+  (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+    </svg>
+  ),
+  (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+  ),
 ]
 
 function ModernExperienceSection({ onBooking }) {
+  const t = useT()
+  const features = t.modern.features.map((f, i) => ({ ...f, icon: FEATURE_ICONS[i] }))
+
   return (
     <section className="modern-section">
       <div className="modern-section-inner">
@@ -818,15 +725,15 @@ function ModernExperienceSection({ onBooking }) {
         />
         <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: 48, paddingBottom: 12 }}>
           <h2 className="modern-heading">
-            One platform for all your distribution decisions
+            {t.modern.heading}
           </h2>
         </div>
         <div className="container">
           <div className="modern-features">
-            {FEATURES.map((f, i) => (
+            {features.map((f, i) => (
               <div key={i} className="modern-feat">
                 <div className="feat-icon">{f.icon}</div>
-                <p className="feat-title">{f.title}</p>
+                <p className="feat-title"><em>{f.titleEm}</em>{f.title.replace(f.titleEm, '')}</p>
                 <p className="feat-body">{f.body}</p>
                 <button className="feat-link" onClick={onBooking}>{f.link} →</button>
               </div>
@@ -844,10 +751,10 @@ function ModernExperienceSection({ onBooking }) {
           <div className="infra-inner">
             <div>
               <p className="infra-text">
-                <em>Built for reality,</em> not for theory. Your files as they are, your data as it exists, your decisions as they need to be made.
+                {t.modern.infraText}
               </p>
               <div style={{ marginTop: 28 }}>
-                <CtaPixelButton label="See how it works" onClick={onBooking} />
+                <CtaPixelButton label={t.modern.infraCta} onClick={onBooking} />
               </div>
             </div>
             <div className="infra-screenshot-wrap">
@@ -865,50 +772,24 @@ function InfraSection() { return null }
 /* ─────────────────────────────────────────
    TESTIMONIALS
 ───────────────────────────────────────── */
-const REVIEWS = [
-  {
-    company: 'Lefebvre Distribution',
-    stars: '★★★★★',
-    text: '"In two hours, Via showed us which references had been destroying our margin for 18 months. We\'d never seen it so clearly."',
-    name: 'Marc Lefebvre',
-    role: 'Sales Director',
-    avatarBg: '#6C5CF5',
-  },
-  {
-    company: 'Groupe Techni-Pro',
-    stars: '★★★★★',
-    text: '"We used to spend two days a month cross-referencing our exports in Excel. Now it\'s ready in 20 minutes, and we can actually see where to act."',
-    name: 'Sophie Renard',
-    role: 'Purchasing Manager',
-    avatarBg: '#E05A00',
-  },
-  {
-    company: 'Delta Fournitures',
-    stars: '★★★★★',
-    text: '"Via identified $180K in dormant stock we weren\'t seeing. We recovered that cash in six weeks."',
-    name: 'Thomas Girard',
-    role: 'Managing Director',
-    avatarBg: '#3DAA3D',
-  },
-]
-
 function TestimonialsSection({ onBooking }) {
+  const t = useT()
   return (
     <section className="testi-header-section">
       <div className="container">
         <div className="testi-header-inner">
           <div>
-            <p className="section-label">Testimonials</p>
-            <h2 className="testi-heading">What our customers say</h2>
+            <p className="section-label">{t.testimonials.label}</p>
+            <h2 className="testi-heading">{t.testimonials.heading}</h2>
           </div>
         </div>
 
         <div className="testi-cards-row">
-          {REVIEWS.map((r, i) => (
+          {t.testimonials.reviews.map((r, i) => (
             <div key={i} className="testi-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span className="testi-card-company">{r.company}</span>
-                <span className="testi-card-stars">{r.stars}</span>
+                <span className="testi-card-stars">★★★★★</span>
               </div>
               <p className="testi-card-text">{r.text}</p>
               <div className="testi-card-person">
@@ -932,6 +813,7 @@ function TestimonialsSection({ onBooking }) {
    CTA BANNER
 ───────────────────────────────────────── */
 function CtaBannerSection({ onBooking }) {
+  const t = useT()
   return (
     <section className="cta-banner">
       <Waves
@@ -943,16 +825,16 @@ function CtaBannerSection({ onBooking }) {
         <div className="cta-banner-inner">
           <div>
             <h2 className="cta-banner-heading">
-              Ready to see your<br /><em>margins clearly?</em>
+              {t.cta.heading1}<br /><em>{t.cta.headingEm}</em>
             </h2>
             <p className="cta-banner-sub">
-              Import your first ERP export today. No integration, no IT project — just clear decisions in minutes.
+              {t.cta.sub}
             </p>
           </div>
           <div className="cta-banner-actions">
-            <CtaPixelButton label="Let's go" onClick={onBooking} />
-            <button className="btn-hero-outline" onClick={onBooking}>See a live demo</button>
-            <p className="cta-banner-note">No commitment · 30-minute live demo</p>
+            <CtaPixelButton label={t.cta.primary} onClick={onBooking} />
+            <button className="btn-hero-outline" onClick={onBooking}>{t.cta.outline}</button>
+            <p className="cta-banner-note">{t.cta.note}</p>
           </div>
         </div>
       </div>
@@ -1035,38 +917,19 @@ function VIABand() {
 /* ─────────────────────────────────────────
    FOOTER
 ───────────────────────────────────────── */
-const FOOTER_COLS = [
-  {
-    heading: 'Products',
-    links: ['Via Margin', 'Via Stock', 'Via Clients', 'Via Categories', 'Via Alerts', 'Via Trends'],
-  },
-  {
-    heading: 'Use cases',
-    links: ['Analyze margins', 'Identify dormant stock', 'Prioritize purchasing', 'Segment customers', 'Prepare sales reviews'],
-  },
-  {
-    heading: 'Company',
-    links: ['About', 'Careers', 'Press', 'Partners', 'Blog', 'Contact'],
-  },
-  {
-    heading: 'Resources',
-    links: ['Help Center', 'Documentation', 'Security', 'Compliance', 'Webinars'],
-  },
+// Routes by [colIndex][linkIndex] — language-independent
+const FOOTER_ROUTES = [
+  ['Solutions', 'Solutions', 'Solutions', 'Solutions', 'Solutions', 'Solutions'],
+  ['Use cases', 'Use cases', 'Use cases', 'Use cases', 'Use cases'],
+  [null, null, null, null, null, 'booking'],
+  ['Resources', 'Resources', null, null, 'Resources'],
 ]
 
-const FOOTER_PAGE_MAP = {
-  'Via Margin': 'Solutions', 'Via Stock': 'Solutions', 'Via Clients': 'Solutions',
-  'Via Categories': 'Solutions', 'Via Alerts': 'Solutions', 'Via Trends': 'Solutions',
-  'Analyze margins': 'Use cases', 'Identify dormant stock': 'Use cases',
-  'Prioritize purchasing': 'Use cases', 'Segment customers': 'Use cases',
-  'Prepare sales reviews': 'Use cases',
-  'Help Center': 'Resources', 'Documentation': 'Resources', 'Webinars': 'Resources',
-  'Contact': 'booking',
-}
-
 function Footer({ onNav, onBooking }) {
-  function handleLink(link) {
-    const target = FOOTER_PAGE_MAP[link]
+  const t = useT()
+
+  function handleLink(colIdx, linkIdx) {
+    const target = FOOTER_ROUTES[colIdx]?.[linkIdx]
     if (target === 'booking') { onBooking(); return }
     if (target) { onNav(target); window.scrollTo({ top: 0, behavior: 'smooth' }) }
   }
@@ -1077,18 +940,16 @@ function Footer({ onNav, onBooking }) {
         <div className="footer-top">
           <div className="footer-brand">
             <button className="footer-nav-logo" onClick={() => onNav(null)}>via.</button>
-            <p className="footer-brand-sub">
-              Your ERP exports into clear decisions. For B2B distributors who want results without an IT project.
-            </p>
+            <p className="footer-brand-sub">{t.footer.brandSub}</p>
           </div>
           <div className="footer-cols">
-            {FOOTER_COLS.map(col => (
-              <div key={col.heading} className="footer-col">
+            {t.footer.cols.map((col, colIdx) => (
+              <div key={colIdx} className="footer-col">
                 <h4>{col.heading}</h4>
                 <ul>
-                  {col.links.map(link => (
-                    <li key={link}>
-                      <button onClick={() => handleLink(link)}>{link}</button>
+                  {col.links.map((link, linkIdx) => (
+                    <li key={linkIdx}>
+                      <button onClick={() => handleLink(colIdx, linkIdx)}>{link}</button>
                     </li>
                   ))}
                 </ul>
@@ -1098,16 +959,24 @@ function Footer({ onNav, onBooking }) {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 Via Technologies SAS. All rights reserved.</p>
+          <p>{t.footer.copyright}</p>
           <ul className="footer-bottom-links">
-            <li><button onClick={onBooking}>Privacy Policy</button></li>
-            <li><button onClick={onBooking}>Terms of Use</button></li>
-            <li><button onClick={onBooking}>Cookies</button></li>
-            <li><button onClick={onBooking}>Accessibility</button></li>
+            {t.footer.legal.map((label, i) => (
+              <li key={i}><button onClick={onBooking}>{label}</button></li>
+            ))}
           </ul>
         </div>
       </div>
     </footer>
+  )
+}
+
+function RebrandBar() {
+  const t = useT()
+  return (
+    <div className="rebrand-bar">
+      <span className="rebrand-badge">{t.rebrandBadge}</span>
+    </div>
   )
 }
 
@@ -1137,6 +1006,7 @@ export default function App() {
   return (
     <>
       {!isBooking && <Navbar onNav={setPage} onBooking={openBooking} />}
+      {!isBooking && <RebrandBar />}
       {isHome ? (
         <>
           <HeroSection onBooking={openBooking} />
