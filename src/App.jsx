@@ -43,7 +43,7 @@ const FOOTER_HREF = {
   'Pricing': '#/pricing', 'One-time licence': '#/pricing',
   'Contact': '#/contact', 'Book a demo': '#/contact', 'Security dossier': '#/contact', 'About VIA': '#/contact',
 }
-const footerHref = (label) => FOOTER_HREF[label] || '#top'
+const footerHref = (label) => FOOTER_HREF[label] || null
 
 /* ─── Data ─── */
 const navItems = [
@@ -827,7 +827,14 @@ function FooterCta() {
             >
               <h3>{heading}</h3>
               <ul>
-                {links.map(link => <li key={link}><a href={footerHref(link)}>{link}</a></li>)}
+                {links.map(link => {
+                  const h = footerHref(link)
+                  return (
+                    <li key={link}>
+                      {h ? <a href={h}>{link}</a> : <span className="footer-static">{link}</span>}
+                    </li>
+                  )
+                })}
               </ul>
             </Motion.div>
           ))}

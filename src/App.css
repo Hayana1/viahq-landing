@@ -1562,3 +1562,12 @@ tr:last-child td { border-bottom: 0; }
   font-weight: 800;
   color: #fff;
 }
+
+/* Non-link footer labels (informational tags, not navigable) */
+.footer-col li span.footer-static {
+  display: block;
+  padding: 6px 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,.48);
+}
