@@ -1,6 +1,6 @@
 import './App.css'
 import { createElement, useState, useRef, useEffect } from 'react'
-import { motion } from 'motion/react'
+import { motion, useScroll, useTransform } from 'motion/react'
 import {
   UsersThree, Eye, Flask, TrendUp, Stack,
   ChartBar, Globe, Monitor, TreeStructure, Database,
@@ -255,6 +255,21 @@ const slideRight = (delay = 0) => ({
   viewport:   vp,
   transition: { duration: 0.6, ease, delay },
 })
+
+/* Scroll-driven pull — tied to live scroll position, not a one-shot trigger */
+function ScrollPull({ as: Tag = 'div', children, fromScale = 0.84, className, style, ...rest }) {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 0.25'] })
+  const scale   = useTransform(scrollYProgress, [0, 1], [fromScale, 1])
+  const opacity = useTransform(scrollYProgress, [0, 0.35], [0, 1])
+  const y       = useTransform(scrollYProgress, [0, 1], [28, 0])
+  const MotionTag = motion[Tag] || motion.div
+  return (
+    <MotionTag ref={ref} style={{ scale, opacity, y, ...style }} className={className} {...rest}>
+      {children}
+    </MotionTag>
+  )
+}
 
 /* On-load (no scroll trigger) */
 const heroLoad = (delay = 0) => ({
@@ -551,13 +566,7 @@ function CapabilitySection() {
       </div>
       <div className="capability-grid">
         {capabilities.map(([Icon, color, title, text, cta, href], i) => (
-          <Motion.article
-            className="capability-card" key={title}
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.5, ease, delay: i * 0.07 }}
-          >
+          <ScrollPull as="article" className="capability-card" key={title} fromScale={0.82}>
             <div className="cap-card-title">
               <span className="cap-icon" style={{ color, background: `${color}22` }}>
                 {createElement(Icon, { size: 17, weight: 'duotone' })}
@@ -566,7 +575,7 @@ function CapabilitySection() {
             </div>
             <p>{text}</p>
             <a href={href}>{cta} <ArrowRight size={13} /></a>
-          </Motion.article>
+          </ScrollPull>
         ))}
       </div>
     </section>
@@ -580,7 +589,7 @@ function HowSection() {
 
   return (
     <section className="ai-card" id="how">
-      <Motion.div className="ai-copy" {...slideLeft(0)}>
+      <ScrollPull className="ai-copy">
         <span className="ai-badge">How it works</span>
         <h2>One ERP export in.<br />Seven analyses out.</h2>
         <Motion.p {...fadeUp(0.15)}>
@@ -589,9 +598,9 @@ function HowSection() {
         <Motion.a className="pill light" href="#platform" {...fadeUp(0.25)}>
           Explore the analyses <ArrowRight size={13} />
         </Motion.a>
-      </Motion.div>
+      </ScrollPull>
 
-      <Motion.div className="ai-visual" aria-hidden="true" {...slideRight(0.1)}>
+      <ScrollPull className="ai-visual" aria-hidden="true">
         <svg className="ai-lines-svg" viewBox="0 0 560 360" preserveAspectRatio="xMidYMid meet">
           <defs>
             {iconCenters.map(([x,y],i) => (
@@ -628,7 +637,7 @@ function HowSection() {
             <img src="/VIA-4-Officiel.png" alt="VIA" />
           </div>
         </div>
-      </Motion.div>
+      </ScrollPull>
     </section>
   )
 }
@@ -646,7 +655,7 @@ function WhySection() {
       </div>
 
       <div className="why-panel">
-        <Motion.div className="table-card" {...slideLeft(0.05)}>
+        <ScrollPull className="table-card" fromScale={0.91}>
           <div className="table-head">
             <div className="table-head-top">
               <span className="table-icon"><TrendUp size={14} weight="fill" color="#7856ff" /></span>
@@ -681,23 +690,19 @@ function WhySection() {
               ))}
             </tbody>
           </table>
-        </Motion.div>
+        </ScrollPull>
 
         <div className="reason-list">
           {reasons.map(([title,text],i) => (
-            <Motion.article
+            <ScrollPull as="article"
               className={`reason-item${i===2?' active':''}`} key={title}
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={vp}
-              transition={{ duration: 0.5, ease, delay: i * 0.09 }}
             >
               <span className="reason-check"><Check size={14} weight="bold" /></span>
               <div>
                 <h3>{title}</h3>
                 <p>{text}</p>
               </div>
-            </Motion.article>
+            </ScrollPull>
           ))}
         </div>
       </div>
@@ -711,36 +716,30 @@ function SecurityPartnerBlock() {
     <section className="ec-block" id="security">
       <div className="ec-enterprise">
         <div className="ec-enterprise-glow" aria-hidden="true" />
-        <Motion.div className="enterprise-copy" {...fadeUp(0)}>
+        <ScrollPull className="enterprise-copy" fromScale={0.92}>
           <h2>Sealed shut by design.<br />Air-gapped by default.</h2>
           <p>VIA answers the one question every IT team asks about third-party software — can it leak our data? — with an architecture that simply has no way out.</p>
           <a className="pill light" href="#/security/on-prem">Read the security dossier <ArrowRight size={13} /></a>
-        </Motion.div>
+        </ScrollPull>
         <div className="enterprise-grid">
           {securityItems.map(([title, text], i) => (
-            <Motion.article
-              key={title} className="enterprise-item"
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={vp}
-              transition={{ duration: 0.5, ease, delay: 0.1 + i * 0.08 }}
-            >
+            <ScrollPull as="article" key={title} className="enterprise-item">
               <span className="ent-check"><ShieldCheck size={16} weight="fill" /></span>
               <h3>{title}</h3>
               <p>{text}</p>
-            </Motion.article>
+            </ScrollPull>
           ))}
         </div>
       </div>
 
       <div className="ec-case">
         <div className="ec-case-glow" aria-hidden="true" />
-        <Motion.div className="case-logo-col" {...slideLeft(0)}>
+        <ScrollPull className="case-logo-col">
           <div className="case-logo-card">
             <img src="/logo-autodistribution.png" alt="AutoDistribution" />
           </div>
-        </Motion.div>
-        <Motion.div className="case-copy" {...fadeUp(0.12)}>
+        </ScrollPull>
+        <ScrollPull className="case-copy">
           <blockquote>
             VIA works with AutoDistribution France to turn their ERP exports into client-portfolio analysis — tracking account growth, decline and margin across the network, entirely on their own infrastructure.
           </blockquote>
@@ -760,7 +759,7 @@ function SecurityPartnerBlock() {
             ))}
           </div>
           <a className="pill light" href="#/contact">Talk to us <ArrowRight size={13} /></a>
-        </Motion.div>
+        </ScrollPull>
       </div>
     </section>
   )
@@ -776,12 +775,8 @@ function SupportSection() {
       </Motion.div>
       <div className="support-grid">
         {supportCards.map(([title,text,cta,color], i) => (
-          <Motion.article
+          <ScrollPull as="article"
             className="support-card" key={title}
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.5, ease, delay: i * 0.1 }}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
           >
             <div className={`support-visual color-${color}`} aria-hidden="true">
@@ -790,7 +785,7 @@ function SupportSection() {
             <h3>{title}</h3>
             <p>{text}</p>
             <a href="#/contact">{cta} <ArrowRight size={13} /></a>
-          </Motion.article>
+          </ScrollPull>
         ))}
       </div>
     </section>
@@ -803,10 +798,10 @@ function FooterCta() {
     <section className="footer-cta-section" id="demo">
       <div className="footer-cta-copy">
         <Motion.h2
-          initial={{ opacity: 0, scale: 0.96, y: 24 }}
+          initial={{ opacity: 0, scale: 0.88, y: 24 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.7, ease }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
         >
           Your ERP already knows.<br />VIA shows you.
         </Motion.h2>
@@ -860,6 +855,81 @@ function AssistantBubble() {
   )
 }
 
+/* ─── Auto demo pop-up — expands from the "Book a demo" bubble (bottom-right) ─── */
+function DemoPopup({ route, onOpen, onClose }) {
+  const [visible, setVisible] = useState(false)
+  const [status, setStatus]   = useState('idle')
+  const shown = useRef(false)
+
+  function show() { setVisible(true); onOpen?.() }
+  function hide() { setVisible(false); onClose?.() }
+
+  useEffect(() => {
+    let timer
+    const trigger = () => {
+      if (shown.current) return
+      shown.current = true
+      show()
+      cleanup()
+    }
+    function cleanup() { clearTimeout(timer) }
+    timer = setTimeout(trigger, 5000)
+    return cleanup
+  }, [])
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setStatus('sending')
+    const form = e.target
+    try {
+      const res = await fetch('https://formspree.io/f/mwvwnalv', {
+        method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' },
+      })
+      if (res.ok) { setStatus('ok'); form.reset() } else { setStatus('error') }
+    } catch { setStatus('error') }
+  }
+
+  if (!visible || route === 'contact') return null
+
+  return (
+    <Motion.div
+      className="demo-popup" role="dialog" aria-label="Book a demo"
+      initial={{ scale: 0.5, opacity: 0, y: 16 }}
+      animate={{ scale: 1, opacity: 1, y: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+      style={{ transformOrigin: 'bottom right' }}
+    >
+      <button className="demo-popup-close" onClick={hide} aria-label="Close">×</button>
+      {status === 'ok' ? (
+        <div className="demo-popup-done">
+          <span className="dp-wave" role="img" aria-label="thanks">🙌</span>
+          <strong>Thanks!</strong>
+          <p>We'll be in touch shortly to set up your demo.</p>
+        </div>
+      ) : (
+        <>
+          <div className="demo-popup-head">
+            <span className="dp-wave" role="img" aria-label="hello">👋</span>
+            <div>
+              <strong>Hi there!</strong>
+              <p>Want to see VIA on your own data?</p>
+            </div>
+          </div>
+          <form className="demo-popup-form" onSubmit={handleSubmit}>
+            <input name="name" required placeholder="Your name" />
+            <input type="email" name="email" required placeholder="Work email" />
+            <input type="hidden" name="source" defaultValue="auto demo popup" />
+            <button className="pill dark" type="submit" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending…' : <>Book a demo <ArrowRight size={14} /></>}
+            </button>
+            {status === 'error' && <span className="dp-err">Oops — try again or email contact@viahq.ai</span>}
+          </form>
+        </>
+      )}
+    </Motion.div>
+  )
+}
+
 /* ─── Home page ─── */
 function HomePage() {
   return (
@@ -878,6 +948,7 @@ function HomePage() {
 /* ─── App ─── */
 export default function App() {
   const route = useRoute()
+  const [popupOpen, setPopupOpen] = useState(false)
   const Page = ROUTES[route]
   return (
     <>
@@ -893,7 +964,8 @@ export default function App() {
       ) : (
         <HomePage />
       )}
-      <AssistantBubble />
+      {!popupOpen && <AssistantBubble />}
+      <DemoPopup route={route} onOpen={() => setPopupOpen(true)} onClose={() => setPopupOpen(false)} />
     </>
   )
 }
