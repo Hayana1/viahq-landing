@@ -290,7 +290,8 @@ function AnnouncementBar() {
 
 /* ─── Header ─── */
 function Header({ route }) {
-  const [openMenu, setOpenMenu] = useState(null)
+  const [openMenu,   setOpenMenu]   = useState(null)
+  const [mobileOpen, setMobileOpen] = useState(false)
   const closeTimer = useRef(null)
 
   const open  = (menu) => { clearTimeout(closeTimer.current); setOpenMenu(menu) }
@@ -304,7 +305,7 @@ function Header({ route }) {
 
   return (
     <header className="site-header" onMouseLeave={close}>
-      <a className="brand" href="#/" aria-label="VIA home">
+      <a className="brand" href="#/" aria-label="VIA home" onClick={() => setMobileOpen(false)}>
         <img className="brand-logo" src="/VIA-4.png" alt="VIA" />
       </a>
       <nav className="nav-links" aria-label="Primary navigation">
@@ -325,7 +326,36 @@ function Header({ route }) {
         <a className="login" href="#/pricing">Pricing</a>
         <a className="pill subtle" href="#/contact">Contact <ArrowRight size={13} /></a>
         <a className="pill dark" href="#/contact">Book a Demo <ArrowRight size={13} /></a>
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setMobileOpen(o => !o)}
+          aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+        >
+          <span className={`ham-icon${mobileOpen ? ' is-open' : ''}`}>
+            <span /><span /><span />
+          </span>
+        </button>
       </div>
+      {mobileOpen && (
+        <div className="mobile-nav-panel">
+          {navItems.map(({ label, href }) => (
+            <a key={label} href={href} className="mnav-link" onClick={() => setMobileOpen(false)}>
+              {label}
+            </a>
+          ))}
+          <div className="mnav-ctas">
+            <a className="pill dark" href="#/contact" onClick={() => setMobileOpen(false)}>
+              Book a Demo <ArrowRight size={14} />
+            </a>
+            <a className="pill subtle" href="#/pricing" onClick={() => setMobileOpen(false)}>
+              Pricing
+            </a>
+            <a className="pill subtle" href="#/security/on-prem" onClick={() => setMobileOpen(false)}>
+              Security
+            </a>
+          </div>
+        </div>
+      )}
       {openMenu === 'product'  && <ProductMegaMenu  onMouseEnter={() => open('product')}  onMouseLeave={close} />}
       {openMenu === 'security' && <SecurityMegaMenu onMouseEnter={() => open('security')} onMouseLeave={close} />}
     </header>
