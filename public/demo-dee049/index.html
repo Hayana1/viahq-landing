@@ -53,13 +53,16 @@
     .cobrand img{height:20px; opacity:.92}
     .foot{margin-top:14px; font-size:.72rem; color:var(--muted); text-align:center; line-height:1.5}
     .lock{display:inline-block; vertical-align:-1px; margin-right:4px}
+    .consent{display:flex; gap:9px; align-items:flex-start; margin:2px 2px 14px; cursor:pointer; text-align:left}
+    .consent input{margin-top:2px; width:16px; height:16px; accent-color:var(--violet); flex-shrink:0; cursor:pointer}
+    .consent span{font-size:.72rem; color:var(--muted); line-height:1.5}
   </style>
 </head>
 <body>
   <form class="card" id="gate" autocomplete="off">
     <img class="logo" src="./via-logo.png" alt="VIA" />
     <h1>Accès à la démonstration</h1>
-    <p class="sub">Identifiez-vous pour accéder à la démo. Renseignez vos coordonnées et le mot de passe qui vous a été communiqué.</p>
+    <p class="sub">Identifiez-vous pour accéder à la démo. Renseignez vos coordonnées et la clé d'accès qui vous a été communiquée.</p>
 
     <div class="row">
       <div class="field">
@@ -76,9 +79,18 @@
       <input id="email" name="email" type="email" required placeholder="vous@entreprise.com" />
     </div>
     <div class="field">
-      <label for="pwd">Mot de passe</label>
+      <label for="entreprise">Entreprise</label>
+      <input id="entreprise" name="entreprise" type="text" required placeholder="Votre organisation" />
+    </div>
+    <div class="field">
+      <label for="pwd">Clé d'accès</label>
       <input id="pwd" name="pwd" type="password" required placeholder="••••••••" />
     </div>
+
+    <label class="consent">
+      <input type="checkbox" id="consent" />
+      <span>J'accepte que VIA enregistre mes informations (nom, prénom, courriel, entreprise) ainsi que des données techniques de connexion, afin de gérer et sécuriser l'accès à cette démonstration. Ces données ne sont pas partagées avec des tiers.</span>
+    </label>
 
     <button type="submit" id="btn">Entrer →</button>
     <div class="err" id="err"></div>
@@ -91,8 +103,8 @@
   </form>
 
   <script>
-    // Mot de passe → clé AES-256 via PBKDF2 (250 000 itérations, sel fixe).
-    // Le mot de passe n'est jamais stocké ; la clé dérivée déchiffre les données de la démo.
+    // Clé d'accès → clé AES-256 via PBKDF2 (250 000 itérations, sel fixe).
+    // La clé d'accès n'est jamais stockée ; la clé dérivée déchiffre les données de la démo.
     const SALT = new Uint8Array([14,19,47,130,101,206,93,37,116,17,74,190,160,134,139,11]);
     const ITER = 250000;
     const FORMSPREE = "https://formspree.io/f/mwvwnalv";
@@ -115,12 +127,15 @@
       const prenom = document.getElementById('prenom').value.trim();
       const nom    = document.getElementById('nom').value.trim();
       const email  = document.getElementById('email').value.trim();
+      const entreprise = document.getElementById('entreprise').value.trim();
       const pwd    = document.getElementById('pwd').value;
-      if (!prenom || !nom || !email || !pwd) return;
+      const consent = document.getElementById('consent').checked;
+      if (!prenom || !nom || !email || !entreprise || !pwd) return;
+      if (!consent){ errEl.textContent = 'Veuillez accepter les conditions pour continuer.'; return; }
 
       btn.disabled = true; btn.textContent = 'Vérification…';
 
-      // Dérive la clé puis vérifie le mot de passe en déchiffrant un témoin.
+      // Dérive la clé puis vérifie la clé d'accès en déchiffrant un témoin.
       let key;
       try {
         key = await deriveKey(pwd);
@@ -129,12 +144,12 @@
         const buf = new Uint8Array(await res.arrayBuffer());
         await crypto.subtle.decrypt({ name:'AES-GCM', iv: buf.slice(0,12) }, key, buf.slice(12));
       } catch (_) {
-        errEl.textContent = 'Coordonnées ou mot de passe incorrects.';
+        errEl.textContent = 'Coordonnées ou clé d\'accès incorrects.';
         btn.disabled = false; btn.textContent = 'Entrer →';
         return;
       }
 
-      // Mot de passe correct → exporter la clé (pour déchiffrer la démo), notifier VIA, ouvrir.
+      // Clé d'accès correcte → exporter la clé (pour déchiffrer la démo), notifier VIA, ouvrir.
       const raw = await crypto.subtle.exportKey('raw', key);
       const keyB64 = btoa(String.fromCharCode(...new Uint8Array(raw)));
       try {
@@ -145,9 +160,19 @@
             prenom: prenom,
             nom: nom,
             email: email,
-            _subject: 'Connexion démo VIA — ' + prenom + ' ' + nom,
-            message: 'Accès démo VIA\nNom : ' + nom + '\nPrénom : ' + prenom +
-                     '\nE-mail : ' + email + '\nDate : ' + new Date().toLocaleString('fr-CA')
+            entreprise: entreprise,
+            consentement: 'Accepté',
+            _subject: 'Connexion démo VIA — ' + prenom + ' ' + nom + ' (' + entreprise + ')',
+            message: 'Accès démo VIA\n'
+              + 'Nom : ' + nom + '\nPrénom : ' + prenom
+              + '\nEntreprise : ' + entreprise
+              + '\nE-mail : ' + email
+              + '\nConsentement : accepté'
+              + '\nDate : ' + new Date().toLocaleString('fr-CA')
+              + '\nFuseau : ' + (Intl.DateTimeFormat().resolvedOptions().timeZone || '?')
+              + '\nLangue : ' + (navigator.language || '?')
+              + '\nÉcran : ' + screen.width + '×' + screen.height
+              + '\nNavigateur : ' + navigator.userAgent
           })
         });
       } catch (_) { /* best-effort : on ouvre quand même */ }
