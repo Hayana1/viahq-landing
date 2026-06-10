@@ -55,7 +55,17 @@
     .lock{display:inline-block; vertical-align:-1px; margin-right:4px}
     .consent{display:flex; gap:9px; align-items:flex-start; margin:2px 2px 14px; cursor:pointer; text-align:left}
     .consent input{margin-top:2px; width:16px; height:16px; accent-color:var(--violet); flex-shrink:0; cursor:pointer}
-    .consent span{font-size:.72rem; color:var(--muted); line-height:1.5}
+    .consent span{font-size:.74rem; color:var(--muted); line-height:1.5}
+    .consent-link{background:none; border:none; padding:0; margin:0; width:auto; font:inherit; color:var(--violet); font-weight:600; text-decoration:underline; cursor:pointer}
+    .modal-overlay{position:fixed; inset:0; background:rgba(28,16,48,.55); backdrop-filter:blur(3px); display:flex; align-items:center; justify-content:center; padding:24px; z-index:50}
+    .modal-overlay[hidden]{display:none}
+    .modal{background:#fff; border-radius:16px; max-width:430px; width:100%; padding:26px 26px 20px; box-shadow:0 30px 80px -24px rgba(40,16,60,.55); text-align:left}
+    .modal h2{margin:0 0 12px; font-size:1.02rem; letter-spacing:-.01em; color:var(--ink)}
+    .modal p{margin:0 0 20px; font-size:.84rem; line-height:1.6; color:var(--muted)}
+    .modal-actions{display:flex; gap:10px; justify-content:flex-end}
+    .modal-actions button{width:auto; margin:0; padding:10px 18px; font-size:.85rem; border-radius:10px}
+    .btn-ghost{background:#f2eefb; color:var(--ink)}
+    .btn-ghost:hover{background:#e8e1f6}
   </style>
 </head>
 <body>
@@ -89,7 +99,7 @@
 
     <label class="consent">
       <input type="checkbox" id="consent" />
-      <span>J'accepte que VIA enregistre mes informations (nom, prénom, courriel, entreprise) ainsi que des données techniques de connexion, afin de gérer et sécuriser l'accès à cette démonstration. Ces données ne sont pas partagées avec des tiers.</span>
+      <span>J'accepte les <button type="button" class="consent-link" id="consentMore">conditions de confidentialité</button> de la démonstration.</span>
     </label>
 
     <button type="submit" id="btn">Entrer →</button>
@@ -102,6 +112,17 @@
     <p class="foot"><span class="lock">🔒</span>Accès réservé. Sans identifiants, contactez VIA.</p>
   </form>
 
+  <div class="modal-overlay" id="consentModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="cm-title">
+      <h2 id="cm-title">Consentement &amp; confidentialité</h2>
+      <p>En accédant à cette démonstration, vous acceptez que <strong>VIA</strong> enregistre vos informations (nom, prénom, courriel, entreprise) ainsi que des données techniques de connexion, afin de gérer et sécuriser l'accès à cette démonstration. Ces données ne sont pas partagées avec des tiers.</p>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" id="consentClose">Fermer</button>
+        <button type="button" id="consentAccept">J'accepte</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Clé d'accès → clé AES-256 via PBKDF2 (250 000 itérations, sel fixe).
     // La clé d'accès n'est jamais stockée ; la clé dérivée déchiffre les données de la démo.
@@ -112,6 +133,16 @@
     const form = document.getElementById('gate');
     const errEl = document.getElementById('err');
     const btn = document.getElementById('btn');
+
+    // Pop-up consentement
+    const consentModal = document.getElementById('consentModal');
+    document.getElementById('consentMore').addEventListener('click', (e) => { e.stopPropagation(); consentModal.hidden = false; });
+    document.getElementById('consentClose').addEventListener('click', () => { consentModal.hidden = true; });
+    document.getElementById('consentAccept').addEventListener('click', () => {
+      document.getElementById('consent').checked = true;
+      consentModal.hidden = true;
+    });
+    consentModal.addEventListener('click', (e) => { if (e.target === consentModal) consentModal.hidden = true; });
 
     async function deriveKey(pwd){
       const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pwd), 'PBKDF2', false, ['deriveKey']);
