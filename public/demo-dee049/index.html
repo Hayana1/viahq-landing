@@ -91,17 +91,22 @@
   </form>
 
   <script>
-    // Empreinte SHA-256 du mot de passe (jamais stocké en clair).
-    const PWD_HASH = "e480cfbb752805d8d69482d198a33137171a39909611232cc3037018fce3c52e";
+    // Mot de passe → clé AES-256 via PBKDF2 (250 000 itérations, sel fixe).
+    // Le mot de passe n'est jamais stocké ; la clé dérivée déchiffre les données de la démo.
+    const SALT = new Uint8Array([14,19,47,130,101,206,93,37,116,17,74,190,160,134,139,11]);
+    const ITER = 250000;
     const FORMSPREE = "https://formspree.io/f/mwvwnalv";
 
     const form = document.getElementById('gate');
     const errEl = document.getElementById('err');
     const btn = document.getElementById('btn');
 
-    async function sha256(str){
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+    async function deriveKey(pwd){
+      const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pwd), 'PBKDF2', false, ['deriveKey']);
+      return crypto.subtle.deriveKey(
+        { name:'PBKDF2', salt:SALT, iterations:ITER, hash:'SHA-256' },
+        base, { name:'AES-GCM', length:256 }, true, ['decrypt']
+      );
     }
 
     form.addEventListener('submit', async (e) => {
@@ -114,15 +119,24 @@
       if (!prenom || !nom || !email || !pwd) return;
 
       btn.disabled = true; btn.textContent = 'Vérification…';
-      const hash = await sha256(pwd);
 
-      if (hash !== PWD_HASH){
+      // Dérive la clé puis vérifie le mot de passe en déchiffrant un témoin.
+      let key;
+      try {
+        key = await deriveKey(pwd);
+        const res = await fetch('./verifier.enc', { cache: 'no-store' });
+        if (!res.ok) throw new Error('verifier');
+        const buf = new Uint8Array(await res.arrayBuffer());
+        await crypto.subtle.decrypt({ name:'AES-GCM', iv: buf.slice(0,12) }, key, buf.slice(12));
+      } catch (_) {
         errEl.textContent = 'Coordonnées ou mot de passe incorrects.';
         btn.disabled = false; btn.textContent = 'Entrer →';
         return;
       }
 
-      // Mot de passe correct → notifier VIA (qui est entré : prénom, nom, e-mail), puis ouvrir la démo.
+      // Mot de passe correct → exporter la clé (pour déchiffrer la démo), notifier VIA, ouvrir.
+      const raw = await crypto.subtle.exportKey('raw', key);
+      const keyB64 = btoa(String.fromCharCode(...new Uint8Array(raw)));
       try {
         await fetch(FORMSPREE, {
           method: 'POST',
@@ -138,6 +152,7 @@
         });
       } catch (_) { /* best-effort : on ouvre quand même */ }
 
+      sessionStorage.setItem('via_key', keyB64);
       sessionStorage.setItem('via_gate_ok', '1');
       location.assign('./demo/');
     });
