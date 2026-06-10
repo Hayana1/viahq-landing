@@ -22,7 +22,7 @@
       display:flex; align-items:center; justify-content:center; padding:24px;
     }
     .card{
-      width:100%; max-width:430px; background:#fff; border:1px solid var(--line);
+      width:100%; max-width:500px; background:#fff; border:1px solid var(--line);
       border-radius:18px; padding:34px 34px 26px;
       box-shadow:0 20px 60px -20px rgba(88,63,214,.28);
     }
@@ -32,7 +32,8 @@
     label{display:block; font-size:.72rem; font-weight:600; text-transform:uppercase;
       letter-spacing:.06em; color:var(--muted); margin:0 0 6px}
     .field{margin-bottom:14px}
-    .row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width:440px){ .row{grid-template-columns:1fr; gap:0} }
     input{
       width:100%; padding:12px 14px; font-size:.95rem; border:1px solid var(--line);
       border-radius:11px; background:#fbfaff; color:var(--ink); outline:none; transition:.15s;
@@ -84,13 +85,15 @@
         <input id="nom" name="nom" type="text" required placeholder="Nom" />
       </div>
     </div>
-    <div class="field">
-      <label for="email">Adresse e-mail</label>
-      <input id="email" name="email" type="email" required placeholder="vous@entreprise.com" />
-    </div>
-    <div class="field">
-      <label for="entreprise">Entreprise</label>
-      <input id="entreprise" name="entreprise" type="text" required placeholder="Votre organisation" />
+    <div class="row">
+      <div class="field">
+        <label for="email">Adresse e-mail</label>
+        <input id="email" name="email" type="email" required placeholder="vous@entreprise.com" />
+      </div>
+      <div class="field">
+        <label for="entreprise">Entreprise</label>
+        <input id="entreprise" name="entreprise" type="text" required placeholder="Votre organisation" />
+      </div>
     </div>
     <div class="field">
       <label for="pwd">Clé d'accès</label>
