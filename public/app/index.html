@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" type="image/png" href="./favicon.png" />
+  <title>VIA — Accès à la démo</title>
+  <style>
+    :root{
+      --violet:#7856FF; --violet-d:#5b3fd6; --bg:#F5F3F7;
+      --ink:#241033; --muted:#6b6580; --line:#e6e1ef; --err:#d4456b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:radial-gradient(1200px 600px at 50% -10%, #efe9ff 0%, var(--bg) 55%);
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      display:flex; align-items:center; justify-content:center; padding:24px;
+    }
+    .card{
+      width:100%; max-width:430px; background:#fff; border:1px solid var(--line);
+      border-radius:18px; padding:34px 34px 26px;
+      box-shadow:0 20px 60px -20px rgba(88,63,214,.28);
+    }
+    .logo{display:block; height:62px; margin:0 auto 18px}
+    h1{font-size:1.22rem; margin:0 0 6px; text-align:center; letter-spacing:-.01em}
+    .sub{font-size:.86rem; color:var(--muted); text-align:center; margin:0 0 24px; line-height:1.5}
+    label{display:block; font-size:.72rem; font-weight:600; text-transform:uppercase;
+      letter-spacing:.06em; color:var(--muted); margin:0 0 6px}
+    .field{margin-bottom:14px}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    input{
+      width:100%; padding:12px 14px; font-size:.95rem; border:1px solid var(--line);
+      border-radius:11px; background:#fbfaff; color:var(--ink); outline:none; transition:.15s;
+    }
+    input:focus{border-color:var(--violet); background:#fff; box-shadow:0 0 0 3px rgba(120,86,255,.15)}
+    button{
+      width:100%; margin-top:8px; padding:13px; font-size:.95rem; font-weight:600;
+      color:#fff; background:var(--violet); border:none; border-radius:11px; cursor:pointer; transition:.15s;
+    }
+    button:hover{background:var(--violet-d)}
+    button:disabled{opacity:.6; cursor:default}
+    .err{color:var(--err); font-size:.82rem; min-height:1.1em; margin:6px 2px 0; text-align:center}
+    .cobrand{
+      margin-top:22px; padding-top:18px; border-top:1px solid var(--line);
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+    }
+    .cobrand-kicker{font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+    .cobrand img{height:20px; opacity:.92}
+    .foot{margin-top:14px; font-size:.72rem; color:var(--muted); text-align:center; line-height:1.5}
+    .lock{display:inline-block; vertical-align:-1px; margin-right:4px}
+  </style>
+</head>
+<body>
+  <form class="card" id="gate" autocomplete="off">
+    <img class="logo" src="./via-logo.png" alt="VIA" />
+    <h1>Accès à la démonstration</h1>
+    <p class="sub">Identifiez-vous pour accéder à la démo. Renseignez vos coordonnées et le mot de passe qui vous a été communiqué.</p>
+
+    <div class="row">
+      <div class="field">
+        <label for="prenom">Prénom</label>
+        <input id="prenom" name="prenom" type="text" required placeholder="Prénom" />
+      </div>
+      <div class="field">
+        <label for="nom">Nom</label>
+        <input id="nom" name="nom" type="text" required placeholder="Nom" />
+      </div>
+    </div>
+    <div class="field">
+      <label for="email">Adresse e-mail</label>
+      <input id="email" name="email" type="email" required placeholder="vous@entreprise.com" />
+    </div>
+    <div class="field">
+      <label for="pwd">Mot de passe</label>
+      <input id="pwd" name="pwd" type="password" required placeholder="••••••••" />
+    </div>
+
+    <button type="submit" id="btn">Entrer →</button>
+    <div class="err" id="err"></div>
+
+    <div class="cobrand">
+      <span class="cobrand-kicker">Démo préparée pour</span>
+      <img src="./descair.png" alt="Descair" />
+    </div>
+    <p class="foot"><span class="lock">🔒</span>Accès réservé. Sans identifiants, contactez VIA.</p>
+  </form>
+
+  <script>
+    // Empreinte SHA-256 du mot de passe (jamais stocké en clair).
+    const PWD_HASH = "e480cfbb752805d8d69482d198a33137171a39909611232cc3037018fce3c52e";
+    const FORMSPREE = "https://formspree.io/f/mwvwnalv";
+
+    const form = document.getElementById('gate');
+    const errEl = document.getElementById('err');
+    const btn = document.getElementById('btn');
+
+    async function sha256(str){
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errEl.textContent = '';
+      const prenom = document.getElementById('prenom').value.trim();
+      const nom    = document.getElementById('nom').value.trim();
+      const email  = document.getElementById('email').value.trim();
+      const pwd    = document.getElementById('pwd').value;
+      if (!prenom || !nom || !email || !pwd) return;
+
+      btn.disabled = true; btn.textContent = 'Vérification…';
+      const hash = await sha256(pwd);
+
+      if (hash !== PWD_HASH){
+        errEl.textContent = 'Coordonnées ou mot de passe incorrects.';
+        btn.disabled = false; btn.textContent = 'Entrer →';
+        return;
+      }
+
+      // Mot de passe correct → notifier VIA (qui est entré : prénom, nom, e-mail), puis ouvrir la démo.
+      try {
+        await fetch(FORMSPREE, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            prenom: prenom,
+            nom: nom,
+            email: email,
+            _subject: 'Connexion démo VIA — ' + prenom + ' ' + nom,
+            message: 'Accès démo VIA\nNom : ' + nom + '\nPrénom : ' + prenom +
+                     '\nE-mail : ' + email + '\nDate : ' + new Date().toLocaleString('fr-CA')
+          })
+        });
+      } catch (_) { /* best-effort : on ouvre quand même */ }
+
+      sessionStorage.setItem('via_gate_ok', '1');
+      location.assign('./demo/');
+    });
+  </script>
+</body>
+</html>

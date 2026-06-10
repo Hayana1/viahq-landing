@@ -1,0 +1,442 @@
+sku_a,sku_b,substitute_group_id,note
+A12-701,THX900B2/U,GRP-001,"Même capacité, marques différentes"
+THX1100W3/U,A421GBF-2C,GRP-002,Modèle équivalent — délai livraison différent
+THX1100W3/U,THX1200W5/U,GRP-002,Modèle équivalent — délai livraison différent
+A421GBF-2C,THX1200W5/U,GRP-002,Modèle équivalent — délai livraison différent
+R76701132,S1200,GRP-003,Alternative budgétaire — efficacité similaire
+R76701132,AEIC-1,GRP-003,Alternative budgétaire — efficacité similaire
+R76701132,TB0041,GRP-003,Alternative budgétaire — efficacité similaire
+S1200,AEIC-1,GRP-003,Alternative budgétaire — efficacité similaire
+S1200,TB0041,GRP-003,Alternative budgétaire — efficacité similaire
+AEIC-1,TB0041,GRP-003,Alternative budgétaire — efficacité similaire
+TH2320U4006/U,YTHX9421R5127WW/U,GRP-004,Remplaçant direct — même gamme
+ETC-2110,TH2110WF4008/U,GRP-005,Modèle équivalent — délai livraison différent
+TH1110U4000/U,THX900W1/U,GRP-006,"Même capacité, marques différentes"
+TH1110U4000/U,TC500A-N,GRP-006,"Même capacité, marques différentes"
+TH1110U4000/U,TH8320R1003/U,GRP-006,"Même capacité, marques différentes"
+THX900W1/U,TC500A-N,GRP-006,"Même capacité, marques différentes"
+THX900W1/U,TH8320R1003/U,GRP-006,"Même capacité, marques différentes"
+TC500A-N,TH8320R1003/U,GRP-006,"Même capacité, marques différentes"
+S1100,THX321WFS3001W/U,GRP-007,"Même capacité, marques différentes"
+1F83C-11PR,TH6220WF2006,GRP-008,Remplaçant direct — même gamme
+A421ABD-02C,THX1000B2/U,GRP-009,Option premium équivalente
+A421ABD-02C,THX1200B6/U,GRP-009,Option premium équivalente
+A421ABD-02C,TH6500WF,GRP-009,Option premium équivalente
+THX1000B2/U,THX1200B6/U,GRP-009,Option premium équivalente
+THX1000B2/U,TH6500WF,GRP-009,Option premium équivalente
+THX1200B6/U,TH6500WF,GRP-009,Option premium équivalente
+TH2320WF4010/U,A19BBC-2C,GRP-010,Interchangeable selon disponibilité stock
+TG9,YTL9160AR1000,GRP-011,Alternative budgétaire — efficacité similaire
+1F83H-21PR,TH6250WF-PRO,GRP-012,Remplaçant direct — même gamme
+1F83H-21PR,78-T725,GRP-012,Remplaçant direct — même gamme
+1F83H-21PR,TH1320U4002/U,GRP-012,Remplaçant direct — même gamme
+TH6250WF-PRO,78-T725,GRP-012,Remplaçant direct — même gamme
+TH6250WF-PRO,TH1320U4002/U,GRP-012,Remplaçant direct — même gamme
+78-T725,TH1320U4002/U,GRP-012,Remplaçant direct — même gamme
+KSACN0901AAA,1F85U-22PR,GRP-013,Modèle équivalent — délai livraison différent
+TH6320U2008,1F85U-42NP,GRP-014,"Même capacité, marques différentes"
+TH6320U2008,TH4110U2005/U,GRP-014,"Même capacité, marques différentes"
+1F85U-42NP,TH4110U2005/U,GRP-014,"Même capacité, marques différentes"
+MIDEA18-DUCT,4CAN2518HP230V-P,GRP-015,Remplaçant direct — même gamme
+MIDEA18-DUCT,4CAN2512HP230V-N,GRP-015,Remplaçant direct — même gamme
+MIDEA18-DUCT,MIDEA-LC48CASSET,GRP-015,Remplaçant direct — même gamme
+4CAN2518HP230V-P,4CAN2512HP230V-N,GRP-015,Remplaçant direct — même gamme
+4CAN2518HP230V-P,MIDEA-LC48CASSET,GRP-015,Remplaçant direct — même gamme
+4CAN2512HP230V-N,MIDEA-LC48CASSET,GRP-015,Remplaçant direct — même gamme
+4CAN2509HP230V-N,MIDEA2218HP230V,GRP-016,"Même capacité, marques différentes"
+4CAN2509HP230V-N,MIDEA2212HP115V,GRP-016,"Même capacité, marques différentes"
+MIDEA2218HP230V,MIDEA2212HP115V,GRP-016,"Même capacité, marques différentes"
+MIDEA18AHU,MIDEA24DUCT-HS,GRP-017,Interchangeable selon disponibilité stock
+MIDEA18CASSETTE,MIDEA3512HP230V,GRP-018,Alternative budgétaire — efficacité similaire
+MIDEA12CONSOLE,MIDEA09-DUCT,GRP-019,Option premium équivalente
+MIDEA12CONSOLE,4CAN2524HP230V-N,GRP-019,Option premium équivalente
+MIDEA09-DUCT,4CAN2524HP230V-N,GRP-019,Option premium équivalente
+MIDEA2812HP230V,MIDEA2809HP230V,GRP-020,Option premium équivalente
+MIDEA-LC36CONSOLE,MIDEA-LC48DUCT-HS,GRP-021,Option premium équivalente
+MIDEA-LC36CONSOLE,MIDEA18DUCT-HS,GRP-021,Option premium équivalente
+MIDEA-LC36CONSOLE,MIDEA2833HP230V,GRP-021,Option premium équivalente
+MIDEA-LC48DUCT-HS,MIDEA18DUCT-HS,GRP-021,Option premium équivalente
+MIDEA-LC48DUCT-HS,MIDEA2833HP230V,GRP-021,Option premium équivalente
+MIDEA18DUCT-HS,MIDEA2833HP230V,GRP-021,Option premium équivalente
+4CANAIR3509HP230V,MIDEA2512HP230V,GRP-022,Alternative budgétaire — efficacité similaire
+4CANAIR3509HP230V,MIDEA2818HP230V,GRP-022,Alternative budgétaire — efficacité similaire
+4CANAIR3509HP230V,MIDEA-LC60DUCT-HS,GRP-022,Alternative budgétaire — efficacité similaire
+MIDEA2512HP230V,MIDEA2818HP230V,GRP-022,Alternative budgétaire — efficacité similaire
+MIDEA2512HP230V,MIDEA-LC60DUCT-HS,GRP-022,Alternative budgétaire — efficacité similaire
+MIDEA2818HP230V,MIDEA-LC60DUCT-HS,GRP-022,Alternative budgétaire — efficacité similaire
+MIDEA60AHU,MIDEA2824HP230V,GRP-023,Option premium équivalente
+MIDEA60AHU,4CAN2509HP230V-P,GRP-023,Option premium équivalente
+MIDEA2824HP230V,4CAN2509HP230V-P,GRP-023,Option premium équivalente
+MIDEA48AHU,MIDEA12-DUCT,GRP-024,Option premium équivalente
+MIDEA-LC60CONSOLE,MIDEA2524HP230V,GRP-025,Interchangeable selon disponibilité stock
+MIDEA-LC60CONSOLE,4CANAIR3518HP230V,GRP-025,Interchangeable selon disponibilité stock
+MIDEA-LC60CONSOLE,MIDEA09CASS-1V,GRP-025,Interchangeable selon disponibilité stock
+MIDEA2524HP230V,4CANAIR3518HP230V,GRP-025,Interchangeable selon disponibilité stock
+MIDEA2524HP230V,MIDEA09CASS-1V,GRP-025,Interchangeable selon disponibilité stock
+4CANAIR3518HP230V,MIDEA09CASS-1V,GRP-025,Interchangeable selon disponibilité stock
+MIDEA-LC36DUCT-HS,MIDEA18CASS-1V,GRP-026,Interchangeable selon disponibilité stock
+MIDEA-LC36DUCT-HS,MIDEA-LC36CASSET,GRP-026,Interchangeable selon disponibilité stock
+MIDEA-LC36DUCT-HS,4CANAIR2509HP115V,GRP-026,Interchangeable selon disponibilité stock
+MIDEA18CASS-1V,MIDEA-LC36CASSET,GRP-026,Interchangeable selon disponibilité stock
+MIDEA18CASS-1V,4CANAIR2509HP115V,GRP-026,Interchangeable selon disponibilité stock
+MIDEA-LC36CASSET,4CANAIR2509HP115V,GRP-026,Interchangeable selon disponibilité stock
+4CANAIR2509HP230V,4CAN2512HP230V-P,GRP-027,Remplaçant direct — même gamme
+4CANAIR2509HP230V,MIDEA09DUCT-HS,GRP-027,Remplaçant direct — même gamme
+4CAN2512HP230V-P,MIDEA09DUCT-HS,GRP-027,Remplaçant direct — même gamme
+MIDEA2209HP115V,MIDEA3509HP230V,GRP-028,Interchangeable selon disponibilité stock
+MIDEA2209HP115V,MIDEA24CONSOLE,GRP-028,Interchangeable selon disponibilité stock
+MIDEA2209HP115V,MIDEA12CASS-1V,GRP-028,Interchangeable selon disponibilité stock
+MIDEA3509HP230V,MIDEA24CONSOLE,GRP-028,Interchangeable selon disponibilité stock
+MIDEA3509HP230V,MIDEA12CASS-1V,GRP-028,Interchangeable selon disponibilité stock
+MIDEA24CONSOLE,MIDEA12CASS-1V,GRP-028,Interchangeable selon disponibilité stock
+MIDEA-LC48CONSOLE,4CANAIR2512HP230V,GRP-029,Interchangeable selon disponibilité stock
+MIDEA24CASSETTE,MIDEA3518HP230V,GRP-030,Modèle équivalent — délai livraison différent
+MIDEA24CASSETTE,MIDEA33AHU,GRP-030,Modèle équivalent — délai livraison différent
+MIDEA24CASSETTE,4CANAIR3512HP230V,GRP-030,Modèle équivalent — délai livraison différent
+MIDEA3518HP230V,MIDEA33AHU,GRP-030,Modèle équivalent — délai livraison différent
+MIDEA3518HP230V,4CANAIR3512HP230V,GRP-030,Modèle équivalent — délai livraison différent
+MIDEA33AHU,4CANAIR3512HP230V,GRP-030,Modèle équivalent — délai livraison différent
+MIDEA09CASSETTE,MIDEA2212HP230V,GRP-031,Remplaçant direct — même gamme
+4CANAIR2512HP115V,MIDEA2209HP230V,GRP-032,Option premium équivalente
+MIDEA18CONSOLE,4CANAIR2809HP230V,GRP-033,Remplaçant direct — même gamme
+4CAN2524HP230V-P,MIDEA24AHU,GRP-034,"Même capacité, marques différentes"
+MIDEA12CASSETTE,4CANAIR2524HP230V,GRP-035,Interchangeable selon disponibilité stock
+MIDEA12CASSETTE,MIDEA2518HP230V,GRP-035,Interchangeable selon disponibilité stock
+4CANAIR2524HP230V,MIDEA2518HP230V,GRP-035,Interchangeable selon disponibilité stock
+4CAN2518HP230V-N,MIDEA2509HP230V,GRP-036,Modèle équivalent — délai livraison différent
+4CAN2518HP230V-N,MIDEA09CONSOLE,GRP-036,Modèle équivalent — délai livraison différent
+MIDEA2509HP230V,MIDEA09CONSOLE,GRP-036,Modèle équivalent — délai livraison différent
+65500906B,24U13,GRP-037,Alternative budgétaire — efficacité similaire
+65500906B,17417600A00181,GRP-037,Alternative budgétaire — efficacité similaire
+24U13,17417600A00181,GRP-037,Alternative budgétaire — efficacité similaire
+EAH-10E(UL),EAH-20F(UL),GRP-038,Interchangeable selon disponibilité stock
+EAH-10E(UL),EHK10A,GRP-038,Interchangeable selon disponibilité stock
+EAH-20F(UL),EHK10A,GRP-038,Interchangeable selon disponibilité stock
+27X97,EAH-15E(UL),GRP-039,Option premium équivalente
+30V41,EHK-05B,GRP-040,"Même capacité, marques différentes"
+602424-50,EHK-20B,GRP-041,Remplaçant direct — même gamme
+EAH-05E(UL),EHK-10B,GRP-042,Alternative budgétaire — efficacité similaire
+EAH-05E(UL),30V47,GRP-042,Alternative budgétaire — efficacité similaire
+EHK-10B,30V47,GRP-042,Alternative budgétaire — efficacité similaire
+22V41,27X93,GRP-043,Alternative budgétaire — efficacité similaire
+EAH-15F(UL),30V53,GRP-044,"Même capacité, marques différentes"
+EHK20B,EAH-05F(UL),GRP-045,Modèle équivalent — délai livraison différent
+EHK20B,30U67,GRP-045,Modèle équivalent — délai livraison différent
+EHK20B,EAH-10F(UL),GRP-045,Modèle équivalent — délai livraison différent
+EAH-05F(UL),30U67,GRP-045,Modèle équivalent — délai livraison différent
+EAH-05F(UL),EAH-10F(UL),GRP-045,Modèle équivalent — délai livraison différent
+30U67,EAH-10F(UL),GRP-045,Modèle équivalent — délai livraison différent
+GARADDMOMULTI10,GARADDMO4CDH10,GRP-047,Remplaçant direct — même gamme
+GARADDMOMULTI10,GARADDMO-C28-10,GRP-047,Remplaçant direct — même gamme
+GARADDMO4CDH10,GARADDMO-C28-10,GRP-047,Remplaçant direct — même gamme
+GARADDMOCDH10,GARADDMOMULC2810,GRP-048,Interchangeable selon disponibilité stock
+TS150,TS2-18,GRP-049,Alternative budgétaire — efficacité similaire
+TS150,P4000,GRP-049,Alternative budgétaire — efficacité similaire
+TS150,327022SH,GRP-049,Alternative budgétaire — efficacité similaire
+TS2-18,P4000,GRP-049,Alternative budgétaire — efficacité similaire
+TS2-18,327022SH,GRP-049,Alternative budgétaire — efficacité similaire
+P4000,327022SH,GRP-049,Alternative budgétaire — efficacité similaire
+P4000T,327022R,GRP-050,Option premium équivalente
+2775GG,2778NO,GRP-052,Alternative budgétaire — efficacité similaire
+2775GG,709331410BR,GRP-052,Alternative budgétaire — efficacité similaire
+2778NO,709331410BR,GRP-052,Alternative budgétaire — efficacité similaire
+2777,2774C,GRP-053,Remplaçant direct — même gamme
+2776C,709331410NO,GRP-054,Alternative budgétaire — efficacité similaire
+2776C,2776,GRP-054,Alternative budgétaire — efficacité similaire
+2776C,2777BR,GRP-054,Alternative budgétaire — efficacité similaire
+709331410NO,2776,GRP-054,Alternative budgétaire — efficacité similaire
+709331410NO,2777BR,GRP-054,Alternative budgétaire — efficacité similaire
+2776,2777BR,GRP-054,Alternative budgétaire — efficacité similaire
+2779_10_S26_BL,7093,GRP-055,Option premium équivalente
+709331410BLM,2778,GRP-056,Alternative budgétaire — efficacité similaire
+709331410BLM,2779,GRP-056,Alternative budgétaire — efficacité similaire
+2778,2779,GRP-056,Alternative budgétaire — efficacité similaire
+2775,2778BLM,GRP-057,Interchangeable selon disponibilité stock
+27710,2777NO,GRP-058,Alternative budgétaire — efficacité similaire
+ST10,SK4,GRP-059,Interchangeable selon disponibilité stock
+ST10,49887,GRP-059,Interchangeable selon disponibilité stock
+SK4,49887,GRP-059,Interchangeable selon disponibilité stock
+JTT6000,UFC1,GRP-060,Remplaçant direct — même gamme
+JTT6000,ST06,GRP-060,Remplaçant direct — même gamme
+UFC1,ST06,GRP-060,Remplaçant direct — même gamme
+C32004,174-F,GRP-061,Alternative budgétaire — efficacité similaire
+DV-6E,NVR2,GRP-062,Interchangeable selon disponibilité stock
+084N0036,VORTEX,GRP-063,Option premium équivalente
+084N0036,4603-0N,GRP-063,Option premium équivalente
+084N0036,MT2H7P5E,GRP-063,Option premium équivalente
+VORTEX,4603-0N,GRP-063,Option premium équivalente
+VORTEX,MT2H7P5E,GRP-063,Option premium équivalente
+4603-0N,MT2H7P5E,GRP-063,Option premium équivalente
+102-F-10,ABM-200,GRP-064,Modèle équivalent — délai livraison différent
+102-F-10,MC14A,GRP-064,Modèle équivalent — délai livraison différent
+102-F-10,SC242575,GRP-064,Modèle équivalent — délai livraison différent
+ABM-200,MC14A,GRP-064,Modèle équivalent — délai livraison différent
+ABM-200,SC242575,GRP-064,Modèle équivalent — délai livraison différent
+MC14A,SC242575,GRP-064,Modèle équivalent — délai livraison différent
+97601,4774-0N,GRP-065,Interchangeable selon disponibilité stock
+97601,17211200003321,GRP-065,Interchangeable selon disponibilité stock
+4774-0N,17211200003321,GRP-065,Interchangeable selon disponibilité stock
+C5A2,193-S,GRP-066,Alternative budgétaire — efficacité similaire
+C5A2,93-S-04,GRP-066,Alternative budgétaire — efficacité similaire
+C5A2,018F0091,GRP-066,Alternative budgétaire — efficacité similaire
+193-S,93-S-04,GRP-066,Alternative budgétaire — efficacité similaire
+193-S,018F0091,GRP-066,Alternative budgétaire — efficacité similaire
+93-S-04,018F0091,GRP-066,Alternative budgétaire — efficacité similaire
+A1,TC-2050,GRP-067,Option premium équivalente
+312-FC,195-FC,GRP-068,"Même capacité, marques différentes"
+312-FC,1075,GRP-068,"Même capacité, marques différentes"
+195-FC,1075,GRP-068,"Même capacité, marques différentes"
+11201007001983,11201007001982,GRP-069,Remplaçant direct — même gamme
+C7089R3013/U,C7189R3002-2/U,GRP-070,Alternative budgétaire — efficacité similaire
+17400513000004,STM-048,GRP-071,Option premium équivalente
+SD08,FV-07VBB1,GRP-073,Option premium équivalente
+SD08,607212-11,GRP-073,Option premium équivalente
+FV-07VBB1,607212-11,GRP-073,Option premium équivalente
+RG3475,6412,GRP-074,Modèle équivalent — délai livraison différent
+RG3475,RG3444,GRP-074,Modèle équivalent — délai livraison différent
+RG3475,PL410-TAUPE,GRP-074,Modèle équivalent — délai livraison différent
+6412,RG3444,GRP-074,Modèle équivalent — délai livraison différent
+6412,PL410-TAUPE,GRP-074,Modèle équivalent — délai livraison différent
+RG3444,PL410-TAUPE,GRP-074,Modèle équivalent — délai livraison différent
+RG0164,RG0227,GRP-075,Remplaçant direct — même gamme
+RG0164,PL410-BLANC,GRP-075,Remplaçant direct — même gamme
+RG0164,6310,GRP-075,Remplaçant direct — même gamme
+RG0227,PL410-BLANC,GRP-075,Remplaçant direct — même gamme
+RG0227,6310,GRP-075,Remplaçant direct — même gamme
+PL410-BLANC,6310,GRP-075,Remplaçant direct — même gamme
+RG0161,RG3429,GRP-076,"Même capacité, marques différentes"
+RG0161,RG1443,GRP-076,"Même capacité, marques différentes"
+RG3429,RG1443,GRP-076,"Même capacité, marques différentes"
+W43822,035603I,GRP-078,"Même capacité, marques différentes"
+W43822,W43817,GRP-078,"Même capacité, marques différentes"
+035603I,W43817,GRP-078,"Même capacité, marques différentes"
+W43818,15500303002644,GRP-079,Modèle équivalent — délai livraison différent
+W43818,8808851,GRP-079,Modèle équivalent — délai livraison différent
+W43818,W43717,GRP-079,Modèle équivalent — délai livraison différent
+15500303002644,8808851,GRP-079,Modèle équivalent — délai livraison différent
+15500303002644,W43717,GRP-079,Modèle équivalent — délai livraison différent
+8808851,W43717,GRP-079,Modèle équivalent — délai livraison différent
+15500303002548,W43709,GRP-080,Modèle équivalent — délai livraison différent
+15500303002548,01t8c00000LNB8aAAH,GRP-080,Modèle équivalent — délai livraison différent
+15500303002548,15122000A07444,GRP-080,Modèle équivalent — délai livraison différent
+W43709,01t8c00000LNB8aAAH,GRP-080,Modèle équivalent — délai livraison différent
+W43709,15122000A07444,GRP-080,Modèle équivalent — délai livraison différent
+01t8c00000LNB8aAAH,15122000A07444,GRP-080,Modèle équivalent — délai livraison différent
+W43705,01t8c00000LNB9UAAX,GRP-081,Modèle équivalent — délai livraison différent
+W43705,01t8c00000LNB7iAAH,GRP-081,Modèle équivalent — délai livraison différent
+W43705,W43808,GRP-081,Modèle équivalent — délai livraison différent
+01t8c00000LNB9UAAX,01t8c00000LNB7iAAH,GRP-081,Modèle équivalent — délai livraison différent
+01t8c00000LNB9UAAX,W43808,GRP-081,Modèle équivalent — délai livraison différent
+01t8c00000LNB7iAAH,W43808,GRP-081,Modèle équivalent — délai livraison différent
+43717,W43803,GRP-082,Option premium équivalente
+43717,W1124,GRP-082,Option premium équivalente
+W43803,W1124,GRP-082,Option premium équivalente
+FV20VQ3,FV0511VK3,GRP-084,Alternative budgétaire — efficacité similaire
+FV20VQ3,FV0511VKS3,GRP-084,Alternative budgétaire — efficacité similaire
+FV20VQ3,FV30VQ3,GRP-084,Alternative budgétaire — efficacité similaire
+FV0511VK3,FV0511VKS3,GRP-084,Alternative budgétaire — efficacité similaire
+FV0511VK3,FV30VQ3,GRP-084,Alternative budgétaire — efficacité similaire
+FV0511VKS3,FV30VQ3,GRP-084,Alternative budgétaire — efficacité similaire
+OD9005PB,OD1209PB,GRP-085,Interchangeable selon disponibilité stock
+FV1115VKL3,FV1115VK3,GRP-086,Alternative budgétaire — efficacité similaire
+FV1115VKL3,A110FC,GRP-086,Alternative budgétaire — efficacité similaire
+FV1115VK3,A110FC,GRP-086,Alternative budgétaire — efficacité similaire
+99024,BDD,GRP-087,Modèle équivalent — délai livraison différent
+15500213002731,15500213001329,GRP-088,Interchangeable selon disponibilité stock
+11501020000461,11501020000401,GRP-089,Remplaçant direct — même gamme
+11501020000461,11501020000301,GRP-089,Remplaçant direct — même gamme
+11501020000401,11501020000301,GRP-089,Remplaçant direct — même gamme
+11501020000361,15500213003329,GRP-090,"Même capacité, marques différentes"
+11501020000361,15422000018613,GRP-090,"Même capacité, marques différentes"
+15500213003329,15422000018613,GRP-090,"Même capacité, marques différentes"
+11501020000402,11501020000421,GRP-091,Option premium équivalente
+8145-20,8045-00,GRP-092,Modèle équivalent — délai livraison différent
+8145-20,99DET02,GRP-092,Modèle équivalent — délai livraison différent
+8145-20,VBATHW,GRP-092,Modèle équivalent — délai livraison différent
+8045-00,99DET02,GRP-092,Modèle équivalent — délai livraison différent
+8045-00,VBATHW,GRP-092,Modèle équivalent — délai livraison différent
+99DET02,VBATHW,GRP-092,Modèle équivalent — délai livraison différent
+8145-00,DTAV40,GRP-093,Modèle équivalent — délai livraison différent
+NEXUS™ 2,N1DX,GRP-094,Alternative budgétaire — efficacité similaire
+MCAHU-H12B-2A,MCAHU-H09B-2A,GRP-095,Option premium équivalente
+MCDHS-H36B-2A,MIH24Q4MN10,GRP-097,"Même capacité, marques différentes"
+MCDHS-H36B-2A,MCDHU-H18B-2A,GRP-097,"Même capacité, marques différentes"
+MIH24Q4MN10,MCDHU-H18B-2A,GRP-097,"Même capacité, marques différentes"
+MIH30Q4MN10,MIH36Q4MN10,GRP-098,Option premium équivalente
+MIH30Q4MN10,MCDHU-H24B-2A,GRP-098,Option premium équivalente
+MIH30Q4MN10,MIH48Q4MN10,GRP-098,Option premium équivalente
+MIH36Q4MN10,MCDHU-H24B-2A,GRP-098,Option premium équivalente
+MIH36Q4MN10,MIH48Q4MN10,GRP-098,Option premium équivalente
+MCDHU-H24B-2A,MIH48Q4MN10,GRP-098,Option premium équivalente
+MCDHU-H09B-2A,MCDHU-H12B-2A,GRP-099,Alternative budgétaire — efficacité similaire
+MCDHU-H09B-2A,MCDHS-H48B-2A,GRP-099,Alternative budgétaire — efficacité similaire
+MCDHU-H12B-2A,MCDHS-H48B-2A,GRP-099,Alternative budgétaire — efficacité similaire
+NKS3,SK4TPHM1,GRP-100,Interchangeable selon disponibilité stock
+2135724,PZKP-90E14-HNBR,GRP-101,Remplaçant direct — même gamme
+2135724,W43955,GRP-101,Remplaçant direct — même gamme
+PZKP-90E14-HNBR,W43955,GRP-101,Remplaçant direct — même gamme
+7445,W43203,GRP-102,Modèle équivalent — délai livraison différent
+4368-28,035545I,GRP-103,Interchangeable selon disponibilité stock
+4368-28,2135,GRP-103,Interchangeable selon disponibilité stock
+4368-28,EL049030,GRP-103,Interchangeable selon disponibilité stock
+035545I,2135,GRP-103,Interchangeable selon disponibilité stock
+035545I,EL049030,GRP-103,Interchangeable selon disponibilité stock
+2135,EL049030,GRP-103,Interchangeable selon disponibilité stock
+4366-26,PZKP-90E6-HNBR,GRP-104,Interchangeable selon disponibilité stock
+4367-28,W43907,GRP-105,Modèle équivalent — délai livraison différent
+4367-28,PZKPR-90E12,GRP-105,Modèle équivalent — délai livraison différent
+W43907,PZKPR-90E12,GRP-105,Modèle équivalent — délai livraison différent
+43612-26,29406-007,GRP-106,Remplaçant direct — même gamme
+43612-26,PZKPR-90E14,GRP-106,Remplaçant direct — même gamme
+43612-26,W43205,GRP-106,Remplaçant direct — même gamme
+29406-007,PZKPR-90E14,GRP-106,Remplaçant direct — même gamme
+29406-007,W43205,GRP-106,Remplaçant direct — même gamme
+PZKPR-90E14,W43205,GRP-106,Remplaçant direct — même gamme
+196035PVC,W43905,GRP-107,Remplaçant direct — même gamme
+4365-26,W43953,GRP-108,Alternative budgétaire — efficacité similaire
+4365-26,4359,GRP-108,Alternative budgétaire — efficacité similaire
+4365-26,43302,GRP-108,Alternative budgétaire — efficacité similaire
+W43953,4359,GRP-108,Alternative budgétaire — efficacité similaire
+W43953,43302,GRP-108,Alternative budgétaire — efficacité similaire
+4359,43302,GRP-108,Alternative budgétaire — efficacité similaire
+PZKP-90E4-HNBR,W43909,GRP-109,Interchangeable selon disponibilité stock
+PZKP-90E4-HNBR,431,GRP-109,Interchangeable selon disponibilité stock
+W43909,431,GRP-109,Interchangeable selon disponibilité stock
+1490T,W43304,GRP-110,Remplaçant direct — même gamme
+1490T,2131724,GRP-110,Remplaçant direct — même gamme
+1490T,W43354,GRP-110,Remplaçant direct — même gamme
+W43304,2131724,GRP-110,Remplaçant direct — même gamme
+W43304,W43354,GRP-110,Remplaçant direct — même gamme
+2131724,W43354,GRP-110,Remplaçant direct — même gamme
+43512,A335,GRP-111,"Même capacité, marques différentes"
+43512,7395,GRP-111,"Même capacité, marques différentes"
+43512,ELB099028,GRP-111,"Même capacité, marques différentes"
+A335,7395,GRP-111,"Même capacité, marques différentes"
+A335,ELB099028,GRP-111,"Même capacité, marques différentes"
+7395,ELB099028,GRP-111,"Même capacité, marques différentes"
+2131624,2136,GRP-112,Remplaçant direct — même gamme
+2131624,43516,GRP-112,Remplaçant direct — même gamme
+2131624,4358,GRP-112,Remplaçant direct — même gamme
+2136,43516,GRP-112,Remplaçant direct — même gamme
+2136,4358,GRP-112,Remplaçant direct — même gamme
+43516,4358,GRP-112,Remplaçant direct — même gamme
+W43313,ELBS039030,GRP-113,Alternative budgétaire — efficacité similaire
+PZKP-90E10-HNBR,LKF92W-3-1/2,GRP-114,Option premium équivalente
+PZKP-90E10-HNBR,LCI122W-4-1/2,GRP-114,Option premium équivalente
+PZKP-90E10-HNBR,435,GRP-114,Option premium équivalente
+LKF92W-3-1/2,LCI122W-4-1/2,GRP-114,Option premium équivalente
+LKF92W-3-1/2,435,GRP-114,Option premium équivalente
+LCI122W-4-1/2,435,GRP-114,Option premium équivalente
+43610D-26G,433OV6,GRP-115,Option premium équivalente
+ELBS059030,PZKP-90E8-HNBR,GRP-116,Option premium équivalente
+ELBS059030,ELB054530,GRP-116,Option premium équivalente
+ELBS059030,2136824,GRP-116,Option premium équivalente
+PZKP-90E8-HNBR,ELB054530,GRP-116,Option premium équivalente
+PZKP-90E8-HNBR,2136824,GRP-116,Option premium équivalente
+ELB054530,2136824,GRP-116,Option premium équivalente
+4365-28,PZKPR-90E4,GRP-117,Option premium équivalente
+LK92W-3-1/2,410007I,GRP-118,Option premium équivalente
+LK92W-3-1/2,110617020E,GRP-118,Option premium équivalente
+LK92W-3-1/2,W43359,GRP-118,Option premium équivalente
+410007I,110617020E,GRP-118,Option premium équivalente
+410007I,W43359,GRP-118,Option premium équivalente
+110617020E,W43359,GRP-118,Option premium équivalente
+4366-28,W43963,GRP-119,Remplaçant direct — même gamme
+2136724,430,GRP-120,Option premium équivalente
+2136724,4364-28,GRP-120,Option premium équivalente
+430,4364-28,GRP-120,Option premium équivalente
+035482,EL069030,GRP-121,"Même capacité, marques différentes"
+436_8_G26,PZKPR-90E8,GRP-122,Interchangeable selon disponibilité stock
+43514,PZKP-90E12-HNBR,GRP-123,Alternative budgétaire — efficacité similaire
+432OV,436,GRP-124,Option premium équivalente
+432OV,A4890,GRP-124,Option premium équivalente
+436,A4890,GRP-124,Option premium équivalente
+433OV5,PZKPR-90E6,GRP-125,Alternative budgétaire — efficacité similaire
+433OV5,43616-24,GRP-125,Alternative budgétaire — efficacité similaire
+PZKPR-90E6,43616-24,GRP-125,Alternative budgétaire — efficacité similaire
+4174104,417214104,GRP-126,Remplaçant direct — même gamme
+4174104,4174106,GRP-126,Remplaçant direct — même gamme
+417214104,4174106,GRP-126,Remplaçant direct — même gamme
+417OV,417314106,GRP-127,"Même capacité, marques différentes"
+417OV,417314104,GRP-127,"Même capacité, marques différentes"
+417OV,417314105,GRP-127,"Même capacité, marques différentes"
+417314106,417314104,GRP-127,"Même capacité, marques différentes"
+417314106,417314105,GRP-127,"Même capacité, marques différentes"
+417314104,417314105,GRP-127,"Même capacité, marques différentes"
+GV2102,417,GRP-128,Remplaçant direct — même gamme
+QREV1024SC,200RB3T4,GRP-129,Interchangeable selon disponibilité stock
+ME9S240HP,KT-47-VZP40,GRP-130,Remplaçant direct — même gamme
+032L1209,MKC124AC,GRP-131,Modèle équivalent — délai livraison différent
+032L1209,ERDE-1.5-Z,GRP-131,Modèle équivalent — délai livraison différent
+032L1209,161094,GRP-131,Modèle équivalent — délai livraison différent
+MKC124AC,ERDE-1.5-Z,GRP-131,Modèle équivalent — délai livraison différent
+MKC124AC,161094,GRP-131,Modèle équivalent — délai livraison différent
+ERDE-1.5-Z,161094,GRP-131,Modèle équivalent — délai livraison différent
+B14S2,032G1077,GRP-132,Modèle équivalent — délai livraison différent
+"LDK110000070,LDK110000-070",161025,GRP-133,Remplaçant direct — même gamme
+"LDK110000070,LDK110000-070",169346,GRP-133,Remplaçant direct — même gamme
+161025,169346,GRP-133,Remplaçant direct — même gamme
+169414,SBFSEAAZP,GRP-134,Remplaçant direct — même gamme
+169414,QREV1224SC,GRP-134,Remplaçant direct — même gamme
+SBFSEAAZP,QREV1224SC,GRP-134,Remplaçant direct — même gamme
+161008,15500203000108,GRP-135,"Même capacité, marques différentes"
+161008,MKC224AC,GRP-135,"Même capacité, marques différentes"
+161008,VAX4B,GRP-135,"Même capacité, marques différentes"
+15500203000108,MKC224AC,GRP-135,"Même capacité, marques différentes"
+15500203000108,VAX4B,GRP-135,"Même capacité, marques différentes"
+MKC224AC,VAX4B,GRP-135,"Même capacité, marques différentes"
+15500208000074,806757,GRP-136,Remplaçant direct — même gamme
+15500208000074,EBQE34,GRP-136,Remplaçant direct — même gamme
+15500208000074,PZKP-BV10-HNBR,GRP-136,Remplaçant direct — même gamme
+806757,EBQE34,GRP-136,Remplaçant direct — même gamme
+806757,PZKP-BV10-HNBR,GRP-136,Remplaçant direct — même gamme
+EBQE34,PZKP-BV10-HNBR,GRP-136,Remplaçant direct — même gamme
+E9S240,XUP,GRP-137,Option premium équivalente
+E9S240,FS.5ZP,GRP-137,Option premium équivalente
+XUP,FS.5ZP,GRP-137,Option premium équivalente
+58663,53106,GRP-138,Remplaçant direct — même gamme
+"LDK410000070,LDK410000-070",SRSE-2-C,GRP-139,Modèle équivalent — délai livraison différent
+068U2029,E10S250,GRP-140,Remplaçant direct — même gamme
+068U2029,EBSSE-10-C,GRP-140,Remplaçant direct — même gamme
+E10S250,EBSSE-10-C,GRP-140,Remplaçant direct — même gamme
+MKC1DUAL,EGJE.5C,GRP-141,Remplaçant direct — même gamme
+MKC1DUAL,57343,GRP-141,Remplaçant direct — même gamme
+MKC1DUAL,ERDE-2-C,GRP-141,Remplaçant direct — même gamme
+EGJE.5C,57343,GRP-141,Remplaçant direct — même gamme
+EGJE.5C,ERDE-2-C,GRP-141,Remplaçant direct — même gamme
+57343,ERDE-2-C,GRP-141,Remplaçant direct — même gamme
+068U4319,EBVP-1110,GRP-142,Modèle équivalent — délai livraison différent
+068U4319,SRJE-1-C,GRP-142,Modèle équivalent — délai livraison différent
+EBVP-1110,SRJE-1-C,GRP-142,Modèle équivalent — délai livraison différent
+DDRD-12,169378,GRP-143,Option premium équivalente
+DDRD-12,ERDE-1/3-C,GRP-143,Option premium équivalente
+DDRD-12,PZKP-BV14-HNBR,GRP-143,Option premium équivalente
+169378,ERDE-1/3-C,GRP-143,Option premium équivalente
+169378,PZKP-BV14-HNBR,GRP-143,Option premium équivalente
+ERDE-1/3-C,PZKP-BV14-HNBR,GRP-143,Option premium équivalente
+067L5858,067L5957,GRP-144,Interchangeable selon disponibilité stock
+067L5858,KT47ZGA-181518,GRP-144,Interchangeable selon disponibilité stock
+067L5858,15422000017979,GRP-144,Interchangeable selon disponibilité stock
+067L5957,KT47ZGA-181518,GRP-144,Interchangeable selon disponibilité stock
+067L5957,15422000017979,GRP-144,Interchangeable selon disponibilité stock
+KT47ZGA-181518,15422000017979,GRP-144,Interchangeable selon disponibilité stock
+02-C31004-B,130323/SDE-7-Z,GRP-145,Modèle équivalent — délai livraison différent
+02-C31004-B,E25S290,GRP-145,Modèle équivalent — délai livraison différent
+130323/SDE-7-Z,E25S290,GRP-145,Modèle équivalent — délai livraison différent
+19V97,OMKC1120,GRP-146,Remplaçant direct — même gamme
+QREV1424SC,067L5859,GRP-147,Option premium équivalente
+QREV1424SC,161027,GRP-147,Option premium équivalente
+QREV1424SC,15500301000035,GRP-147,Option premium équivalente
+067L5859,161027,GRP-147,Option premium équivalente
+067L5859,15500301000035,GRP-147,Option premium équivalente
+161027,15500301000035,GRP-147,Option premium équivalente
+KT47VC-181511,ERDE-1-Z,GRP-148,Option premium équivalente
+KT47VC-181511,032F8106,GRP-148,Option premium équivalente
+ERDE-1-Z,032F8106,GRP-148,Option premium équivalente
+FSE.25ZP,SSE3C,GRP-149,Remplaçant direct — même gamme
+FSE.25ZP,FJE.5C,GRP-149,Remplaçant direct — même gamme
+FSE.25ZP,E5S130-HP,GRP-149,Remplaçant direct — même gamme
+SSE3C,FJE.5C,GRP-149,Remplaçant direct — même gamme
+SSE3C,E5S130-HP,GRP-149,Remplaçant direct — même gamme
+FJE.5C,E5S130-HP,GRP-149,Remplaçant direct — même gamme
+068U4598,018F4100,GRP-150,Option premium équivalente
