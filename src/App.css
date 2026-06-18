@@ -423,6 +423,13 @@ body {
   line-height: 1.5;
 }
 
+.hero-copy .hero-audience {
+  margin-top: 12px;
+  color: #3f3a46;
+  font-size: 15px;
+  font-weight: 750;
+}
+
 /* Feature tiles */
 .tile-row {
   width: min(1040px, calc(100% - 40px));
@@ -523,6 +530,16 @@ body {
   gap: 12px;
   position: relative;
   z-index: 4;
+}
+
+.hero-trust {
+  position: relative;
+  z-index: 4;
+  margin: 12px auto 0;
+  color: #8a8492;
+  font-size: 13px;
+  font-weight: 650;
+  text-align: center;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1568,6 +1585,7 @@ tr:last-child td { border-bottom: 0; }
   .hero-copy    { width: calc(100% - 32px); }
   .hero-copy h1 { font-size: 38px; letter-spacing: -0.035em; }
   .hero-copy p  { font-size: 16px; margin-top: 18px; }
+  .hero-copy .hero-audience { font-size: 13px; margin-top: 10px; }
 
   .tile-row {
     width: calc(100% - 32px);
@@ -1580,6 +1598,7 @@ tr:last-child td { border-bottom: 0; }
 
   .hero-actions { flex-direction: column; align-items: center; gap: 10px; margin-top: 24px; }
   .hero-actions .pill.large { width: calc(100% - 32px); max-width: 380px; justify-content: center; }
+  .hero-trust { width: calc(100% - 40px); font-size: 12px; }
 
   /* ── Hero visual ── */
   .hero-visual      { width: calc(100% - 24px); height: 360px; margin-top: 36px; }

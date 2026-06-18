@@ -357,8 +357,8 @@ export function SalesPage() {
     <ProductPage accent="#3b82f6" accentSoft="rgba(59,130,246,0.12)">
       <PageHero
         eyebrow="Product · Sales Analysis" EyIcon={TrendUp}
-        title={<>See where sales<br />are really moving</>}
-        lead="Volume and revenue, year over year, by product and by family — with the four-quadrant view that tells you exactly what to push, protect, reprice or retire."
+        title={<>See what sold —<br />and what should have sold</>}
+        lead="Find missing sales, declining categories and hidden demand gaps."
         float={{ Icon: ArrowsLeftRight, value: '+5%', label: 'Revenue YoY, all families' }}
       >
         <DashCard title="Revenue YoY" sub="This year vs. last · by family" tag="Live" TagIcon={TrendUp}>
@@ -367,12 +367,12 @@ export function SalesPage() {
       </PageHero>
 
       <section className="pp-section">
-        <SectionHead kicker="What it does" title="Growth and decline, in one screen" body="No more pivot tables across two ERP exports. VIA compares both years instantly — and lets you act on the difference." />
+        <SectionHead kicker="What it does" title="Sales explained clearly" body="VIA compares actual performance with expected demand." />
         <Row
           kicker="Year over year"
           title="Volume and revenue, side by side"
-          body="Every SKU and every family, this year against last, in both units and revenue. Filter to just the risers or just the fallers, and click any line to open its month-by-month trend."
-          bullets={['Divergent bars centred on zero for instant reading', 'Rising / falling filters with live counts', 'Monthly sparkline behind every row']}
+          body="Compare every SKU and family in units and revenue."
+          bullets={['Risers and fallers', 'Missing-sales signals', 'Monthly trends']}
         >
           <DashCard title="Top families by revenue" sub="Filtered view · 962 SKUs" tag="Sortable" TagIcon={ChartBar}>
             <RankBars rows={topFamilies} />
@@ -383,8 +383,8 @@ export function SalesPage() {
           reverse
           kicker="Strategic view"
           title="The four-quadrant map of your catalog"
-          body="Cross volume against margin and every reference falls into one of four plays. Thresholds default to the median, so you always get a balanced read — then tune them to your reality."
-          bullets={['Volume × Margin or Stock × Margin', 'Per-quadrant SKU count, revenue and margin', 'Click a quadrant to filter the table below']}
+          body="See which SKUs to push, protect, reprice or retire."
+          bullets={['Volume × Margin', 'SKU count and revenue by quadrant', 'Click to filter']}
         >
           <DashCard title="Volume × Margin" sub="Each dot is a reference" tag="4 quadrants">
             <Quadrant cells={quadCells} dots={dots} axisX="Volume" axisY="Margin" />
@@ -394,7 +394,7 @@ export function SalesPage() {
         <Row
           kicker="Early warning"
           title="Spot declines before they become dead stock"
-          body="A reference losing volume two years running is tomorrow's overstock. The monthly trend shows whether a drop is a blip, a slide, or a season — so you cut purchasing in time."
+          body="Catch weak demand before it becomes overstock."
         >
           <DashCard title="Monthly revenue" sub="2025 vs. 2024" tag="Sparkline" TagIcon={TrendUp}>
             <SparkDual a={[42, 48, 45, 60, 55, 68, 64, 72, 70, 78, 74, 82]} b={[50, 52, 49, 55, 53, 58, 54, 57, 52, 56, 50, 53]} />
@@ -404,9 +404,9 @@ export function SalesPage() {
 
       <Band
         kicker="The gain"
-        title="A half-day of Excel, gone."
-        body="What used to be a cross-tab across two exports is now a sortable, filterable view that recalculates as fast as you can think."
-        stats={[['2 → 1', 'two ERP exports compared in a single view'], ['962 SKUs', 'ranked and filtered in under a second'], ['Risers first', 'reorder winners before they stock out']]}
+        title="Find the missed sale."
+        body="See where expected demand did not happen, and what it may cost."
+        stats={[['Expected vs actual', 'find hidden gaps'], ['962 SKUs', 'ranked fast'], ['Action first', 'push, protect, reprice or retire']]}
       />
       <Controls />
     </ProductPage>
@@ -440,8 +440,8 @@ export function MarginPage() {
     <ProductPage accent="#ff6a4d" accentSoft="rgba(255,117,87,0.13)">
       <PageHero
         eyebrow="Product · Margin Analysis" EyIcon={ChartBar}
-        title={<>Catch margin erosion<br />before the P&amp;L does</>}
-        lead="Revenue can hold steady while profit quietly bleeds. VIA compares margin SKU by SKU, year over year, buckets every drift, and puts a euro figure on it."
+        title={<>Protect margin<br />with the full picture</>}
+        lead="Find margin leaks and price decisions that improve total profit."
         float={{ Icon: Warning, value: '−$360k', label: 'Margin at risk this year' }}
       >
         <DashCard title="Margin drift" sub="Share of catalog by bucket" tag="This year" TagIcon={ChartBar}>
@@ -450,12 +450,12 @@ export function MarginPage() {
       </PageHero>
 
       <section className="pp-section">
-        <SectionHead kicker="What it does" title="Make a silent leak visible" body="Margin erosion only shows up in quarterly accounts — too late to act. VIA surfaces it product by product, the moment it starts." />
+        <SectionHead kicker="What it does" title="Know where profit is leaking" body="VIA shows the margin drift and its financial impact." />
         <Row
           kicker="SKU level"
           title="Margin drift, reference by reference"
-          body="Every SKU's margin this year against last, with the euro impact of the drift on current revenue. Sorted worst-first, so the biggest leaks are always on top."
-          bullets={['Estimated euro impact, not just a percentage', 'Buckets: critical, strong, moderate, up', 'Drill by product, family or substitution']}
+          body="Rank every SKU by margin change and financial impact."
+          bullets={['Euro impact', 'Risk buckets', 'Product and family drilldown']}
         >
           <DashCard title="Biggest margin movers" sub="Δ margin × revenue" tag="Worst first" TagIcon={Warning}>
             <RankBars rows={drops} />
@@ -466,7 +466,7 @@ export function MarginPage() {
           reverse
           kicker="Diagnosis"
           title="Gradual, sudden, or seasonal?"
-          body="Click any reference to see its margin month by month, both years overlaid. The shape tells you the cause — supplier pressure creeping in, a one-off cost jump, or a seasonal dip."
+          body="See if the issue is gradual, sudden or seasonal."
         >
           <DashCard title="Monthly margin %" sub="2025 vs. 2024" tag="Sparkline" TagIcon={TrendUp}>
             <SparkDual a={[31, 30, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21]} b={[32, 32, 31, 31, 30, 30, 29, 29, 28, 28, 27, 27]} />
@@ -476,7 +476,7 @@ export function MarginPage() {
         <Row
           kicker="By family"
           title="Where the pressure is building"
-          body="A family-by-family heatmap of margin over the months makes a slow slide impossible to miss — and points straight at the supplier conversation you need to have."
+          body="Spot weak categories before the leak spreads."
         >
           <DashCard title="Margin % by family" sub="Last 6 months" tag="Heatmap">
             <Heat cols={['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']} rows={heatRows} />
@@ -486,9 +486,9 @@ export function MarginPage() {
 
       <Band
         kicker="The gain"
-        title="The leak you could only see at quarter-end."
-        body="On a $60M book, a −2% drift across a third of the catalog is roughly $360k of annual margin. Seeing it early turns it into a renegotiation, not a write-off."
-        stats={[['−2%', 'average drift can hide on a third of the catalog'], ['$360k', 'annual margin at stake on a $60M book'], ['Real time', 'euro impact updates as you move thresholds']]}
+        title="Not every price increase helps."
+        body="VIA shows customer, volume and basket impact before you act."
+        stats={[['−2%', 'hidden margin drift'], ['$360k', 'margin at stake'], ['Context', 'before pricing action']]}
       />
       <Controls />
     </ProductPage>
@@ -534,7 +534,7 @@ export function InventoryPage() {
       <PageHero
         eyebrow="Product · Inventory & Overstock" EyIcon={Stack}
         title={<>Find the cash<br />trapped in your stock</>}
-        lead="Dead stock ties up capital at zero apparent cost — and real cost. VIA scores every reference by capital at risk and margin, then tells you what to liquidate, push or freeze."
+        lead="Find excess stock, dead stock and items not to reorder."
         float={{ Icon: Package, value: '$312k', label: 'Capital at risk · 47 SKUs' }}
       >
         <DashCard title="Stock health" sub="962 SKUs · 13% dead stock" tag="Last 12 mo" TagIcon={Stack}>
@@ -543,12 +543,12 @@ export function InventoryPage() {
       </PageHero>
 
       <section className="pp-section">
-        <SectionHead kicker="What it does" title="Two sides of the same shelf" body="Capital trapped in what won't sell, and stock-outs looming on what will. VIA scores both — and ranks them by what they cost you." />
+        <SectionHead kicker="What it does" title="Reduce stock risk" body="VIA ranks excess stock and stockout risk by business impact." />
         <Row
           kicker="Overstock"
           title="Capital trapped in slow-movers"
-          body="Each reference is scored by capital immobilised crossed with margin risk, so $10k stuck at a negative margin outranks $10k at 50%. The action is spelled out: liquidate, push, freeze, or flag a negative margin."
-          bullets={['Capital-at-risk score per SKU', 'Action label, never just a number', 'Filter by min stock value, sales/mo, max margin']}
+          body="Rank SKUs by trapped capital, demand and margin risk."
+          bullets={['Capital at risk', 'Action label', 'Demand and margin filters']}
         >
           <DashCard title="Top references by capital at risk" sub="Score = capital × margin risk" tag="Action" TagIcon={Warning}>
             <RankBars rows={trapped} />
@@ -559,8 +559,8 @@ export function InventoryPage() {
           reverse
           kicker="Replenishment"
           title="Catch your winners before they run out"
-          body="High-margin references running low on cover, ranked by urgency. A stock-out on a 35%-margin line selling $500 a month is $175 of margin lost every month — and a customer sent to a competitor."
-          bullets={['Urgency tiers: urgent, soon, plan', 'Months-of-cover with reorder point marked', 'Sorted by lowest cover first']}
+          body="Prioritize what to reorder before sales are lost."
+          bullets={['Urgency tiers', 'Months of cover', 'Supplier lead time']}
         >
           <DashCard title="Running low on cover" sub="High margin · low stock" tag="Urgency" TagIcon={Package}>
             <Bullets rows={cover} />
@@ -569,8 +569,8 @@ export function InventoryPage() {
 
         <Row
           kicker="The right call"
-          title="Liquidate vs. push — never brade a good line"
-          body="Cross stock against margin and the call becomes obvious. A high-margin overstock gets a gentle price nudge; a low-margin one gets liquidated. The distinction saves you from discounting profit away."
+          title="Liquidate, push or wait"
+          body="Choose the right action for each stock position."
         >
           <DashCard title="Stock × Margin" sub="Each dot is a reference" tag="4 quadrants">
             <Quadrant cells={quadCells} dots={dots} axisX="Months of stock" axisY="Margin" />
@@ -581,8 +581,8 @@ export function InventoryPage() {
       <Band
         kicker="The gain"
         title="Stop financing stock that doesn't move."
-        body="Trapped capital is opportunity cost, obsolescence risk and storage cost rolled into one. VIA surfaces it in under a second — and keeps you from brading healthy-margin lines by mistake."
-        stats={[['< 1s', 'to rank ~960 SKUs by capital at risk'], ['$312k', 'freed when slow-movers are cleared in time'], ['Liquidate ≠ push', 'the distinction that protects your margin']]}
+        body="Release cash without hurting useful stock."
+        stats={[['< 1s', 'rank SKUs'], ['$312k', 'capital at risk'], ['Action', 'push, freeze or liquidate']]}
       />
       <Controls />
     </ProductPage>
@@ -620,8 +620,8 @@ export function CustomersPage() {
     <ProductPage accent="#10b981" accentSoft="rgba(16,185,129,0.12)">
       <PageHero
         eyebrow="Product · Customer Performance" EyIcon={UsersThree}
-        title={<>Know which accounts<br />are slipping</>}
-        lead="Your portfolio by account: growth, decline, margin and category mix. Catch a key account cooling off before you lose it — the analysis AutoDistribution France runs on their own network."
+        title={<>Know true<br />customer value</>}
+        lead="See growth, margin, mix, risk and missed categories by account."
         float={{ Icon: TrendUp, value: '−18%', label: 'Top account, year over year' }}
       >
         <DashCard title="Accounts by revenue" sub="With YoY and tier" tag="Portfolio" TagIcon={UsersThree}>
@@ -630,12 +630,12 @@ export function CustomersPage() {
       </PageHero>
 
       <section className="pp-section">
-        <SectionHead kicker="What it does" title="See your book of business clearly" body="Concentrated client risk is one of the biggest exposures a distributor carries. VIA makes every account's trajectory visible at a glance." />
+        <SectionHead kicker="What it does" title="Look beyond revenue" body="VIA shows which customers are growing, slipping or underperforming." />
         <Row
           kicker="Portfolio"
           title="Every account, ranked and tiered"
-          body="Revenue this year and last, year-over-year change in euros and percent, gross margin, and a key / mid / small tier on every account. Sort, filter, and open any account for the full detail."
-          bullets={['Growth and decline per account', 'Key / mid / small account tiers', 'Top products and category mix on the detail page']}
+          body="Rank accounts by revenue, growth, margin and tier."
+          bullets={['Growth and decline', 'Customer tiers', 'Product mix']}
         >
           <DashCard title="Category mix" sub="Selected account · share of revenue" tag="Account view">
             <Donut segs={mix} />
@@ -646,7 +646,7 @@ export function CustomersPage() {
           reverse
           kicker="Two watchlists"
           title="Accounts to watch, accounts on the rise"
-          body="VIA keeps two lists always current: accounts slipping past your decline threshold, and accounts growing past it. The watchlist is your proactive call sheet — reach out before the drop becomes a loss."
+          body="Know who to protect, recover or grow next."
         >
           <DashCard title="Spotlight" sub="Threshold ±5%" tag="Live" TagIcon={TrendUp}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
@@ -665,9 +665,9 @@ export function CustomersPage() {
 
       <Band
         kicker="The gain"
-        title="Concentrated client risk is the quiet killer."
-        body="A key account at 15% of revenue dropping 20% drags your whole book down 3% — often straight off the bottom line. Catching it early turns a loss into a phone call."
-        stats={[['15% → −3%', 'one key account slipping drags the whole book'], ['Cheaper to keep', 'retaining a fading account beats winning a new one'], ['AutoDistribution', 'runs this analysis on its own infrastructure']]}
+        title="Revenue is not customer value."
+        body="Protect profitable accounts and recover weak ones."
+        stats={[['15% → −3%', 'key account risk'], ['Mix', 'hidden opportunity'], ['Action', 'protect, recover or grow']]}
       />
       <Controls />
     </ProductPage>

@@ -53,11 +53,11 @@ const navItems = [
 ]
 
 const productTiles = [
-  { Icon: Stack,      label: 'Surface dead stock',       sub: 'Capital tied up in slow-movers', color: '#ef4444', bg: 'rgba(239,68,68,0.10)'   },
-  { Icon: TrendUp,    label: 'Catch margin erosion',     sub: 'SKU-level drift with euro impact',  color: '#f59e0b', bg: 'rgba(245,158,11,0.10)'  },
-  { Icon: Eye,        label: 'Time your reorders',       sub: 'High-margin lines running low',  color: '#3b82f6', bg: 'rgba(59,130,246,0.10)'  },
-  { Icon: UsersThree, label: 'Track client performance', sub: 'Growth, decline & margin by account', color: '#10b981', bg: 'rgba(16,185,129,0.10)'  },
-  { Icon: Flask,      label: 'Compare substitutes',      sub: 'Did the switch help or hurt?',   color: '#8b5cf6', bg: 'rgba(139,92,246,0.10)'  },
+  { Icon: Stack,      label: 'Reduce excess stock',      sub: 'Find cash trapped in inventory', color: '#ef4444', bg: 'rgba(239,68,68,0.10)'   },
+  { Icon: TrendUp,    label: 'Protect margins',          sub: 'See where profit is leaking', color: '#f59e0b', bg: 'rgba(245,158,11,0.10)'  },
+  { Icon: Eye,        label: 'Recover missed sales',     sub: 'Spot expected demand gaps', color: '#3b82f6', bg: 'rgba(59,130,246,0.10)'  },
+  { Icon: UsersThree, label: 'Know customer value',      sub: 'Read revenue, mix and margin', color: '#10b981', bg: 'rgba(16,185,129,0.10)'  },
+  { Icon: Flask,      label: 'Link related products',    sub: 'Find complements and substitutes', color: '#8b5cf6', bg: 'rgba(139,92,246,0.10)'  },
 ]
 
 const logos = [
@@ -67,36 +67,36 @@ const logos = [
 
 const capabilities = [
   [ChartBar,      '#ff7e67', 'Dead Stock',
-   'Spot the references quietly tying up your capital. VIA scores every SKU by capital at risk and margin, so you know what to liquidate, push or freeze — in seconds, not spreadsheets.',
+   'Find cash trapped in slow-moving SKUs and decide what to push, freeze or liquidate.',
    'See dead-stock scoring', '#/inventory'],
   [Globe,         '#5ab4ff', 'Replenishment Opportunities',
-   'Catch your winners before they run out. VIA flags high-margin products running low on cover, ranked by urgency, so you reorder in time instead of losing the sale.',
+   'Know what to order, when to order, and what should wait.',
    'See replenishment alerts', '#/inventory'],
   [Monitor,       '#4ecab8', 'Margin Erosion',
-   'Revenue can hold while profit quietly bleeds. VIA compares margin SKU by SKU, year over year, and surfaces every drift with its estimated euro impact.',
+   'Find where profit is leaking and which price moves protect margin.',
    'See margin analysis', '#/margin'],
   [Flask,         '#c4a8ff', 'Year-over-Year Sales',
-   "See what's growing and what's fading — by product and by family, with monthly trendlines — before a decline turns into dead stock.",
+   'Spot demand shifts before they hurt stock and margin.',
    'See sales comparison', '#/sales'],
   [TreeStructure, '#f5c842', 'Client Performance',
-   'Read your portfolio by account: growth, decline, margin and category mix. Catch a key account slipping before you lose it.',
+   'See which customers protect margin and which ones drain it.',
    'See client analysis', '#/customers'],
   [Database,      '#ff85c2', 'Substitutes & Cross-Analysis',
-   'When one reference replaces another, VIA links them and measures whether the switch helped or hurt your margin — plus a four-quadrant view of your whole catalog.',
+   'See how product links affect stock, pricing and basket margin.',
    'See the full picture', '#/sales'],
 ]
 
 const aiTools = ['◎', '✳', '◆', '✦', 'N']
 
 const reasons = [
-  ['Answers in seconds',
-   'Load one Excel file and explore dead stock, margins, reorders and client trends instantly — no data team, no BI project.'],
+  ['Built for distributors',
+   'Made for large catalogs, complex prices and thousands of SKU decisions.'],
   ['Yours, outright',
-   'Buy it once, install it on your own machines, own it for good. No subscription, no cloud, no vendor lock-in.'],
+   'Install it on your machines and keep control of your data.'],
   ['Runs fully offline',
-   'Air-gapped by design: no API, no network calls, no telemetry. Your data never leaves your network.'],
+   'No API, no network calls, no telemetry.'],
   ['Built around your rules',
-   'Thresholds, scoring and analyses are tailored to your business and adjust as needs change — including a smooth path to SAP exports.'],
+   'Thresholds and analyses fit your catalog and pricing logic.'],
 ]
 
 const securityItems = [
@@ -107,9 +107,9 @@ const securityItems = [
 ]
 
 const supportCards = [
-  ['A year of hyper-care',   'After go-live, around twelve months of close support: fixes, adjustments and changes included while you settle in.', 'See how support works',  'purple'],
-  ['You report, we fix',     'Because nothing phones home, there are no automatic logs. Flag an issue by email or phone and we patch it directly.', 'Talk to us',             'blue'],
-  ['Tailored to your rules', 'Thresholds, scoring and even a future move to SAP exports — the software bends to your business, not the other way round.', 'See deployment options', 'coral'],
+  ['A year of hyper-care',   'Fixes and adjustments included after go-live.', 'See how support works',  'purple'],
+  ['You report, we fix',     'No telemetry. You call us, we patch it.', 'Talk to us',             'blue'],
+  ['Tailored to your rules', 'Thresholds and scoring match your business.', 'See deployment options', 'coral'],
 ]
 
 const footerCols = [
@@ -123,15 +123,15 @@ const footerCols = [
 
 /* ─── Product mega-menu data ─── */
 const platformAnalytics = [
-  { Icon: TrendUp,    color: '#3b82f6', bg: 'rgba(59,130,246,.12)',  title: 'Sales Analysis',        sub: 'Growth, decline & the 4-quadrant view', href: '#/sales' },
-  { Icon: ChartBar,   color: '#ff7e67', bg: 'rgba(255,126,103,.12)', title: 'Margin Analysis',       sub: 'Catch erosion with euro impact',        href: '#/margin' },
   { Icon: Stack,      color: '#7856ff', bg: 'rgba(120,86,255,.12)',  title: 'Inventory & Overstock', sub: 'Find the cash trapped in stock',        href: '#/inventory' },
-  { Icon: UsersThree, color: '#10b981', bg: 'rgba(16,185,129,.12)',  title: 'Customer Performance',  sub: 'Spot accounts before they slip',        href: '#/customers' },
+  { Icon: ChartBar,   color: '#ff7e67', bg: 'rgba(255,126,103,.12)', title: 'Margin Analysis',       sub: 'Protect profit at SKU level',           href: '#/margin' },
+  { Icon: TrendUp,    color: '#3b82f6', bg: 'rgba(59,130,246,.12)',  title: 'Sales Analysis',        sub: 'Spot demand before it shifts stock',   href: '#/sales' },
+  { Icon: UsersThree, color: '#10b981', bg: 'rgba(16,185,129,.12)',  title: 'Customer Performance',  sub: 'See margin by account',                href: '#/customers' },
 ]
 
 const platformReasons = [
   { Icon: Globe,    color: '#f59e0b', bg: 'rgba(245,158,11,.12)', title: 'Built for distributors', sub: 'Made for industrial SMEs & distribution', href: '#/sales' },
-  { Icon: Database, color: '#3b82f6', bg: 'rgba(59,130,246,.12)', title: 'From one ERP export',    sub: 'Works from a standard Excel export',      href: '#/inventory' },
+  { Icon: Database, color: '#3b82f6', bg: 'rgba(59,130,246,.12)', title: 'From your existing data', sub: 'No complex integration to start',         href: '#/inventory' },
   { Icon: Eye,      color: '#ff7557', bg: 'rgba(255,117,87,.12)', title: 'Answers in seconds',     sub: 'No data team, no BI project',             href: '#/margin' },
   { Icon: Monitor,  color: '#4ecab8', bg: 'rgba(78,202,184,.12)', title: 'Tailored to your rules', sub: 'Thresholds adapt to your business',       href: '#/customers' },
 ]
@@ -189,7 +189,7 @@ function ProductMegaMenu({ onMouseEnter, onMouseLeave }) {
         </div>
         <div className="pmm-card-body">
           <span className="pmm-card-title">VIA Intelligence</span>
-          <p className="pmm-card-desc">Turn your ERP data into profitable decisions.</p>
+          <p className="pmm-card-desc">Optimize stock. Maximize margins.</p>
           <div className="pmm-card-pills">
             {platformCardPills.map(({ Icon, color, label }) => (
               <span key={label} className="pmm-card-pill">
@@ -391,7 +391,7 @@ function HeroVisual() {
           <span className="agent-controls"><span /><span /></span>
         </div>
         <p className="agent-msg">
-          47 references are tying up $312k in capital with margins under 10%. Here's what to liquidate first.
+          $312k tied up in slow-moving stock. Act here first.
         </p>
         <div className="agent-cta-row">
           <button className="agent-cta-btn">Show dead-stock list</button>
@@ -547,10 +547,13 @@ function Hero() {
 
       <div className="hero-copy">
         <Motion.h1 {...heroLoad(0)}>
-          Turn boring Data<br />into decisions
+          Optimize your stock.<br />Maximize your margins.
         </Motion.h1>
         <Motion.p {...heroLoad(0.18)}>
-          VIA reads one Excel export from your ERP and turns it into dead-stock, margin, reorder and client analysis — running entirely on your own machine, owned outright by you.
+          VIA helps distributors reduce excess inventory, protect profit and focus on the SKUs that matter most.
+        </Motion.p>
+        <Motion.p className="hero-audience" {...heroLoad(0.24)}>
+          Built for distributors managing thousands of SKUs.
         </Motion.p>
       </div>
 
@@ -573,8 +576,11 @@ function Hero() {
 
       <Motion.div className="hero-actions" {...heroLoad(0.46)}>
         <a className="pill dark large" href="#/contact">Book a Demo <ArrowRight size={15} /></a>
-        <a className="pill subtle large" href="#how">See how it works <ArrowRight size={15} /></a>
+        <a className="pill subtle large" href="#how">See How VIA Works <ArrowRight size={15} /></a>
       </Motion.div>
+      <Motion.p className="hero-trust" {...heroLoad(0.52)}>
+        Works from your existing data. Runs entirely on your infrastructure.
+      </Motion.p>
 
       <Motion.div {...heroLoad(0.58)}>
         <HeroVisual />
@@ -595,7 +601,7 @@ function CapabilitySection() {
         ))}
       </div>
       <div className="capability-grid">
-        {capabilities.map(([Icon, color, title, text, cta, href], i) => (
+        {capabilities.map(([Icon, color, title, text, cta, href]) => (
           <ScrollPull as="article" className="capability-card" key={title} fromScale={0.82}>
             <div className="cap-card-title">
               <span className="cap-icon" style={{ color, background: `${color}22` }}>
@@ -621,9 +627,9 @@ function HowSection() {
     <section className="ai-card" id="how">
       <ScrollPull className="ai-copy">
         <span className="ai-badge">How it works</span>
-        <h2>One ERP export in.<br />Seven analyses out.</h2>
+        <h2>Less excess stock.<br />More margin.</h2>
         <Motion.p {...fadeUp(0.15)}>
-          Drop in an Excel export from your ERP. VIA reads it on the spot — no setup, no integration, nothing leaving your machine — and turns it into dead-stock, margin, reorder, sales, client and substitute analyses you can act on the same morning.
+          VIA connects stock, margin and sales signals to show where to act.
         </Motion.p>
         <Motion.a className="pill light" href="#platform" {...fadeUp(0.25)}>
           Explore the analyses <ArrowRight size={13} />
@@ -679,7 +685,7 @@ function WhySection() {
       <div className="why-header">
         <Motion.h2 {...fadeUp(0)}>Why distributors choose VIA</Motion.h2>
         <Motion.div className="why-header-right" {...fadeUp(0.1)}>
-          <p>We give operations, purchasing and finance teams the confidence to stop guessing and act on what their ERP already knows.</p>
+          <p>Make better stock and pricing decisions with the full picture.</p>
           <a className="pill dark" href="#/contact">Book a Demo <ArrowRight size={13} /></a>
         </Motion.div>
       </div>
@@ -748,11 +754,11 @@ function SecurityPartnerBlock() {
         <div className="ec-enterprise-glow" aria-hidden="true" />
         <ScrollPull className="enterprise-copy" fromScale={0.92}>
           <h2>Sealed shut by design.<br />Air-gapped by default.</h2>
-          <p>VIA answers the one question every IT team asks about third-party software — can it leak our data? — with an architecture that simply has no way out.</p>
+          <p>No API. No outbound calls. No data leaving your network.</p>
           <a className="pill light" href="#/security/on-prem">Read the security dossier <ArrowRight size={13} /></a>
         </ScrollPull>
         <div className="enterprise-grid">
-          {securityItems.map(([title, text], i) => (
+          {securityItems.map(([title, text]) => (
             <ScrollPull as="article" key={title} className="enterprise-item">
               <span className="ent-check"><ShieldCheck size={16} weight="fill" /></span>
               <h3>{title}</h3>
@@ -771,11 +777,11 @@ function SecurityPartnerBlock() {
         </ScrollPull>
         <ScrollPull className="case-copy">
           <blockquote>
-            VIA works with AutoDistribution France to turn their ERP exports into client-portfolio analysis — tracking account growth, decline and margin across the network, entirely on their own infrastructure.
+            VIA helps AutoDistribution France track stock, customer growth and margin from business data.
           </blockquote>
           <p className="case-author"><strong>AutoDistribution France</strong> · Auto parts distribution</p>
           <div className="case-stats">
-            {[['7','analyses in one click'],['1','Excel export to start'],['0','data leaving the network']].map(([n, label], i) => (
+            {[['Stock','at risk'],['Margin','by SKU'],['0','data leaving the network']].map(([n, label], i) => (
               <Motion.div
                 className="case-stat" key={label}
                 initial={{ opacity: 0, y: 20 }}
@@ -801,10 +807,10 @@ function SupportSection() {
     <section className="support-section">
       <Motion.div className="section-head" {...fadeUp(0)}>
         <h2>Support, the way an<br />offline product needs it</h2>
-        <p>Because nothing phones home, support is hands-on and direct. Here's how it works once VIA is yours.</p>
+        <p>Offline software needs direct support. Here is how it works.</p>
       </Motion.div>
       <div className="support-grid">
-        {supportCards.map(([title,text,cta,color], i) => (
+        {supportCards.map(([title,text,cta,color]) => (
           <ScrollPull as="article"
             className="support-card" key={title}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
@@ -833,7 +839,7 @@ function FooterCta() {
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
         >
-          Your ERP already knows.<br />VIA shows you.
+          Find hidden losses.<br />Act faster.
         </Motion.h2>
         <Motion.div className="footer-cta-actions" {...fadeUp(0.18)}>
           <a className="pill dark large" href="#/contact">Book a Demo <ArrowRight size={15} /></a>
