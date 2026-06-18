@@ -1,6 +1,6 @@
 import './App.css'
 import { createElement, useState, useRef, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react'
 import {
   UsersThree, Eye, Flask, TrendUp, Stack,
   ChartBar, Globe, Monitor, TreeStructure, Database,
@@ -27,23 +27,6 @@ function useRoute() {
   }, [])
   return route
 }
-
-const FOOTER_HREF = {
-  'Dead Stock': '#/inventory', 'Replenishment': '#/inventory', 'Inventory & Overstock': '#/inventory',
-  'Margin Erosion': '#/margin', 'Margin Analysis': '#/margin',
-  'Sales YoY': '#/sales', 'Cross-Analysis': '#/sales', 'Substitutes': '#/sales', 'Sales Analysis': '#/sales',
-  'Client Performance': '#/customers', 'Customer Performance': '#/customers',
-  'How it works': '#how',
-  'Security': '#/security/on-prem', 'Air-gapped architecture': '#/security/on-prem',
-  'What we verified': '#/security/on-prem', 'Component inventory': '#/security/on-prem',
-  'Audit & sandbox': '#/security/on-prem', 'Data ownership': '#/security/on-prem',
-  'Deployment': '#/security/on-prem', 'Desktop app': '#/security/on-prem', 'Internal server': '#/security/on-prem',
-  'Portable version': '#/security/on-prem', 'Installation': '#/security/on-prem', 'Hyper-care': '#/security/on-prem',
-  'Roadmap to SAP': '#/security/on-prem',
-  'Pricing': '#/pricing', 'One-time licence': '#/pricing',
-  'Contact': '#/contact', 'Book a demo': '#/contact', 'Security dossier': '#/contact', 'About VIA': '#/contact',
-}
-const footerHref = (label) => FOOTER_HREF[label] || null
 
 /* ─── Data ─── */
 const navItems = [
@@ -110,15 +93,6 @@ const supportCards = [
   ['A year of hyper-care',   'Fixes and adjustments included after go-live.', 'See how support works',  'purple'],
   ['You report, we fix',     'No telemetry. You call us, we patch it.', 'Talk to us',             'blue'],
   ['Tailored to your rules', 'Thresholds and scoring match your business.', 'See deployment options', 'coral'],
-]
-
-const footerCols = [
-  ['ANALYSES',     ['Dead Stock','Replenishment','Margin Erosion','Sales YoY','Client Performance','Substitutes','Cross-Analysis']],
-  ['PRODUCT',      ['How it works','Security','Deployment','One-time licence','Roadmap to SAP']],
-  ["WHO IT'S FOR", ['Distributors','Industrial SMEs','Auto parts','HVAC','Wholesale','Purchasing teams','Finance teams']],
-  ['SECURITY',     ['Air-gapped architecture','What we verified','Component inventory','Audit & sandbox','Data ownership']],
-  ['DEPLOYMENT',   ['Desktop app','Internal server','Portable version','Installation','Hyper-care']],
-  ['COMPANY',      ['About VIA','Contact','Book a demo','Security dossier']],
 ]
 
 /* ─── Product mega-menu data ─── */
@@ -546,11 +520,41 @@ function Hero() {
       />
 
       <div className="hero-copy">
-        <Motion.h1 {...heroLoad(0)}>
-          Optimize your stock.<br />Maximize your margins.
+        <Motion.h1
+          className="hero-title-reveal"
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.10 } },
+          }}
+        >
+          {['Optimize your stock.', 'Maximize your margins.'].map((line, i) => (
+            <Motion.span
+              className="hero-title-line"
+              key={line}
+              custom={i}
+              variants={{
+                hidden: (index) => ({
+                  x: index === 0 ? -44 : 44,
+                  opacity: 0,
+                  scale: 0.98,
+                }),
+                show: () => ({
+                  x: 0,
+                  y: 0,
+                  opacity: 1,
+                  scale: 1,
+                  transition: { duration: 0.58, ease },
+                }),
+              }}
+            >
+              {line}
+            </Motion.span>
+          ))}
         </Motion.h1>
         <Motion.p {...heroLoad(0.18)}>
-          VIA helps distributors reduce excess inventory, protect profit and focus on the SKUs that matter most.
+          VIA helps distributors measure the impact of price and stock decisions before money and space are lost.
         </Motion.p>
         <Motion.p className="hero-audience" {...heroLoad(0.24)}>
           Built for distributors managing thousands of SKUs.
@@ -629,7 +633,7 @@ function HowSection() {
         <span className="ai-badge">How it works</span>
         <h2>Less excess stock.<br />More margin.</h2>
         <Motion.p {...fadeUp(0.15)}>
-          VIA connects stock, margin and sales signals to show where to act.
+          VIA shows which stock and pricing decisions protect space, cash and margin.
         </Motion.p>
         <Motion.a className="pill light" href="#platform" {...fadeUp(0.25)}>
           Explore the analyses <ArrowRight size={13} />
@@ -685,7 +689,7 @@ function WhySection() {
       <div className="why-header">
         <Motion.h2 {...fadeUp(0)}>Why distributors choose VIA</Motion.h2>
         <Motion.div className="why-header-right" {...fadeUp(0.1)}>
-          <p>Make better stock and pricing decisions with the full picture.</p>
+          <p>Measure the full impact before changing stock or prices.</p>
           <a className="pill dark" href="#/contact">Book a Demo <ArrowRight size={13} /></a>
         </Motion.div>
       </div>
@@ -847,33 +851,16 @@ function FooterCta() {
         </Motion.div>
       </div>
       <footer className="mega-footer">
-        <div className="footer-grid">
-          {footerCols.map(([heading,links], i) => (
-            <Motion.div
-              className="footer-col" key={heading}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-20px' }}
-              transition={{ duration: 0.45, ease, delay: i * 0.06 }}
-            >
-              <h3>{heading}</h3>
-              <ul>
-                {links.map(link => {
-                  const h = footerHref(link)
-                  return (
-                    <li key={link}>
-                      {h ? <a href={h}>{link}</a> : <span className="footer-static">{link}</span>}
-                    </li>
-                  )
-                })}
-              </ul>
-            </Motion.div>
-          ))}
-        </div>
-        <div className="footer-bottom">
-          <img className="footer-brand" src="/VIA-4-Officiel.png" alt="VIA" />
-          <span className="footer-legal">© 2026 VIA · Software you own, running on your machines</span>
-        </div>
+        <Motion.div
+          className="footer-wordmark"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-20px' }}
+          transition={{ duration: 0.6, ease }}
+          aria-label="VIA Technology"
+        >
+          VIA Technology
+        </Motion.div>
       </footer>
     </section>
   )
@@ -982,12 +969,42 @@ function HomePage() {
 }
 
 /* ─── App ─── */
+function LoadingScreen() {
+  return (
+    <motion.div
+      className="loading-screen"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.32, ease: 'easeOut' } }}
+      aria-label="Loading VIA"
+    >
+      <motion.img
+        src="/VIA-4-Officiel.png"
+        alt="VIA"
+        className="loading-logo"
+        initial={{ opacity: 0, scale: 0.86, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.42, ease }}
+      />
+    </motion.div>
+  )
+}
+
 export default function App() {
   const route = useRoute()
   const [popupOpen, setPopupOpen] = useState(false)
+  const [loading, setLoading] = useState(true)
   const Page = ROUTES[route]
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setLoading(false), 850)
+    return () => window.clearTimeout(timer)
+  }, [])
+
   return (
     <>
+      <AnimatePresence>
+        {loading && <LoadingScreen />}
+      </AnimatePresence>
       <div className="top-chrome">
         <AnnouncementBar />
         <Header route={route} />

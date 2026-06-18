@@ -994,30 +994,30 @@ export function PricingPage() {
     {
       name: 'Owned', tag: 'On-premise', accent: '#7856ff', rec: true,
       line: 'Buy once. Install on your machines. Own it for good.',
-      price: 'One-time licence', priceSub: 'tailored to your needs — contact us',
+      price: 'Contact us', priceSub: 'fill the form for a tailored quote',
       feats: ['Air-gapped — nothing leaves your network', 'Full source & component inventory handed over', 'Three install options (desktop, server, portable)', '≈ 12 months of hyper-care included', 'Smooth path to SAP exports'],
-      cta: 'Request a quote',
+      cta: 'Fill the form',
     },
     {
       name: 'Managed', tag: 'SaaS', accent: '#3b82f6', rec: false,
       line: 'We host it, secure it and keep it up to date.',
-      price: 'From $550/mo', priceSub: 'scales with your needs — contact us',
+      price: 'Contact us', priceSub: 'we price it around your needs',
       feats: ['Hosting, updates & backups handled for you', 'Encrypted in transit and at rest', 'Per-user, role-based access (SSO on request)', 'Your data isolated, never resold', 'Same seven analyses'],
-      cta: 'Request a quote',
+      cta: 'Fill the form',
     },
   ]
   return (
     <ProductPage accent="#7856ff" accentSoft="rgba(120,86,255,0.12)">
       <PageHero
         eyebrow="Pricing" EyIcon={Sparkle}
-        title={<>Two ways to own VIA.</>}
-        lead="One software, one purpose — pick the model that fits how you want to run it. Plans start at $550/month and scale with your catalogue size and team, so let's talk."
-        float={{ Icon: Sparkle, value: 'From $550/mo', label: 'starting price · scales with needs' }}
+        title={<>Pricing depends<br />on your setup.</>}
+        lead="Tell us what you need through the form. We will come back with the right model and a clear quote."
+        float={{ Icon: Sparkle, value: 'Contact us', label: 'quote based on your setup' }}
       >
         <div className="plan-mini">
-          <div className="plan-mini-row"><span className="pm-dot" style={{ background: '#7856ff' }} />Owned · on-premise<strong>One-time</strong></div>
-          <div className="plan-mini-row"><span className="pm-dot" style={{ background: '#3b82f6' }} />Managed · SaaS<strong>From $550/mo</strong></div>
-          <div className="plan-mini-note">Both include the seven analyses, tunable thresholds and one-click Excel export. Final price depends on your needs — contact us.</div>
+          <div className="plan-mini-row"><span className="pm-dot" style={{ background: '#7856ff' }} />Owned · on-premise<strong>Contact us</strong></div>
+          <div className="plan-mini-row"><span className="pm-dot" style={{ background: '#3b82f6' }} />Managed · SaaS<strong>Contact us</strong></div>
+          <div className="plan-mini-note">Fill the form. We review your needs and send a clear proposal.</div>
         </div>
       </PageHero>
 
@@ -1044,7 +1044,7 @@ export function PricingPage() {
         <CompareTable
           head={['', 'Owned · on-premise', 'Managed · SaaS']}
           rows={[
-            ['Payment', 'One-time licence', 'From $550/mo'],
+            ['Pricing', 'Tailored quote', 'Tailored quote'],
             ['Hosting', 'Your machines', 'We host it'],
             ['Data location', 'Your network only', 'Managed cloud'],
             ['Updates', 'Manual, during hyper-care', 'Automatic'],
@@ -1055,10 +1055,10 @@ export function PricingPage() {
       </section>
 
       <Band
-        kicker="No surprises"
-        title="From $550/month, tailored to you."
-        body="Plans start at $550/month and scale with your catalogue size and team. Tell us your setup and we'll come back with a clear quote — no lock-in."
-        stats={[['From $550/mo', 'starting point, scales with your needs'], ['No lock-in', 'own it outright, or cancel anytime'], ['One demo', 'on your own data before you decide']]}
+        kicker="Next step"
+        title="Fill the form. We will contact you."
+        body="Share your setup, catalogue size and priorities. We will recommend the right model and quote."
+        stats={[['1 form', 'to start the conversation'], ['Clear quote', 'based on your needs'], ['Demo', 'before you decide']]}
       />
     </ProductPage>
   )
@@ -1091,11 +1091,11 @@ export function ContactPage() {
           <motion.div {...fadeUp(0)}>
             <span className="pp-eyebrow"><span className="ey-ic"><Sparkle size={13} weight="bold" /></span>Book a demo</span>
             <h1>See VIA on<br />your own data</h1>
-            <p className="lead">Send us a bit about your setup and we'll set up a demo built from your catalogue. No commitment — just a clear look at what VIA surfaces.</p>
+            <p className="lead">Tell us about your stock, margins and priorities. We will prepare the right demo and quote.</p>
             <ul className="pp-bullets" style={{ marginTop: 22 }}>
-              <li><span className="bl-ic"><Check size={15} weight="bold" /></span>A demo built from your own ERP export</li>
+              <li><span className="bl-ic"><Check size={15} weight="bold" /></span>A demo focused on your stock and margins</li>
               <li><span className="bl-ic"><Check size={15} weight="bold" /></span>On-premise or SaaS — we'll advise</li>
-              <li><span className="bl-ic"><Check size={15} weight="bold" /></span>A tailored quote, no sticker price</li>
+              <li><span className="bl-ic"><Check size={15} weight="bold" /></span>A clear quote after the form</li>
             </ul>
           </motion.div>
 
@@ -1126,7 +1126,7 @@ export function ContactPage() {
                   </select>
                 </label>
                 <label className="field"><span>Anything we should know?</span>
-                  <textarea name="message" rows="3" placeholder="Catalogue size, ERP, what you'd like to see…" />
+                  <textarea name="message" rows="3" placeholder="Catalogue size, stock issues, margin goals…" />
                 </label>
                 <button className="pill dark large form-submit" type="submit" disabled={status === 'sending'}>
                   {status === 'sending' ? 'Sending…' : <>Request a demo <ArrowRight size={15} /></>}
