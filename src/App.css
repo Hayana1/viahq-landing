@@ -183,6 +183,26 @@ body {
   transform: translateY(-8px);
 }
 
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-width: 36px;
+  padding: 0 9px;
+  border: 1px solid rgba(27, 23, 32, 0.1);
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #4f4a58;
+  background: #fff;
+}
+
+.lang-toggle:hover {
+  color: var(--ink);
+  border-color: rgba(27, 23, 32, 0.18);
+}
+
 .login {
   display: inline-flex;
   align-items: center;

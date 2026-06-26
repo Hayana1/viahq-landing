@@ -1,5 +1,5 @@
 import './App.css'
-import { createElement, useState, useRef, useEffect } from 'react'
+import { createElement, useState, useRef, useEffect, useLayoutEffect } from 'react'
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react'
 import {
   UsersThree, Eye, Flask, TrendUp, Stack,
@@ -9,11 +9,395 @@ import {
 } from '@phosphor-icons/react'
 import { ROUTES } from './pages.jsx'
 
+const FR_ROUTE_TO_ROUTE = {
+  ventes: 'sales',
+  marges: 'margin',
+  inventaire: 'inventory',
+  clients: 'customers',
+  'securite/on-premise': 'security/on-prem',
+  'securite/saas': 'security/saas',
+  demo: 'contact',
+  contact: 'contact',
+}
+
+const ROUTE_TO_FR_ROUTE = Object.fromEntries(
+  Object.entries(FR_ROUTE_TO_ROUTE).map(([fr, route]) => [route, fr])
+)
+
+function localizePath(route = 'home', lang = 'en') {
+  if (lang !== 'fr') return route === 'home' ? '#/' : `#/${route}`
+  return route === 'home' ? '#/fr' : `#/fr/${ROUTE_TO_FR_ROUTE[route] || route}`
+}
+
+function localizeHref(href, lang) {
+  if (lang !== 'fr' || !href?.startsWith('#/')) return href
+  const route = href.slice(2).replace(/\/$/, '') || 'home'
+  return localizePath(route, lang)
+}
+
+const frText = {
+  'Air-gapped': 'Isolé du réseau',
+  'ViteLink is now VIA.': 'ViteLink devient VIA.',
+  Product: 'Produit',
+  Security: 'Sécurité',
+  Demo: 'Démo',
+  Contact: 'Contact',
+  'Book a Demo': 'Réserver une démo',
+  'Book a demo': 'Réserver une démo',
+  'Primary navigation': 'Navigation principale',
+  'VIA home': 'Accueil VIA',
+  'Open menu': 'Ouvrir le menu',
+  'Close menu': 'Fermer le menu',
+  'Analyses': 'Analyses',
+  'Why VIA?': 'Pourquoi VIA ?',
+  'Deployment models': 'Modes de déploiement',
+  "Why it's safe": 'Pourquoi c’est sécurisé',
+  'Inventory & Overstock': 'Inventaire et surstock',
+  'Find the cash trapped in stock': 'Repérez le capital immobilisé en stock',
+  'Margin Analysis': 'Analyse des marges',
+  'Protect profit at SKU level': 'Protégez la marge au niveau SKU',
+  'Sales Analysis': 'Analyse des ventes',
+  'Spot demand before it shifts stock': 'Repérez la demande avant qu’elle ne déplace le stock',
+  'Customer Performance': 'Performance clients',
+  'See margin by account': 'Analysez la marge par compte',
+  'Built for distributors': 'Conçu pour les distributeurs',
+  'Made for industrial SMEs & distribution': 'Pensé pour les PME industrielles et la distribution',
+  'From your existing data': 'À partir de vos données existantes',
+  'No complex integration to start': 'Pas d’intégration complexe pour démarrer',
+  'Answers in seconds': 'Des réponses en quelques secondes',
+  'No data team, no BI project': 'Pas d’équipe data ni de projet BI',
+  'Tailored to your rules': 'Adapté à vos règles',
+  'Thresholds adapt to your business': 'Les seuils s’adaptent à votre métier',
+  'Optimize stock. Maximize margins.': 'Optimisez le stock. Maximisez les marges.',
+  'On-premise · Air-gapped': 'Sur site · isolé du réseau',
+  'Installed at your site. No way out.': 'Installé chez vous. Aucune sortie.',
+  'SaaS · Managed': 'SaaS · géré',
+  'We host it, encrypted & access-controlled.': 'Nous l’hébergeons, chiffré et avec contrôle des accès.',
+  'Air-gapped architecture': 'Architecture isolée',
+  'No API, no outbound traffic': 'Aucune API, aucun trafic sortant',
+  'What we verify': 'Ce que nous vérifions',
+  'Confirmed in the source code': 'Confirmé dans le code source',
+  'Verify it yourself': 'Vérifiez vous-même',
+  'Audit, sandbox, pen-test': 'Audit, bac à sable, test d’intrusion',
+  'Data ownership': 'Propriété des données',
+  'Your data, your machines': 'Vos données, vos machines',
+  'Security dossier': 'Dossier sécurité',
+  'Get the full air-gap dossier for your IT team.': 'Recevez le dossier complet pour votre équipe IT.',
+  'Request it': 'Le demander',
+  'Reduce excess stock': 'Réduire le surstock',
+  'Find cash trapped in inventory': 'Repérer le capital immobilisé',
+  'Protect margins': 'Protéger les marges',
+  'See where profit is leaking': 'Voir où la marge se dégrade',
+  'Recover missed sales': 'Récupérer les ventes manquées',
+  'Spot expected demand gaps': 'Repérer les écarts de demande',
+  'Know customer value': 'Comprendre la valeur client',
+  'Read revenue, mix and margin': 'Lire chiffre d’affaires, mix et marge',
+  'Link related products': 'Relier les produits associés',
+  'Find complements and substitutes': 'Trouver compléments et substituts',
+  'Action center': 'Centre d’action',
+  '$312k tied up in slow-moving stock. Act here first.': '312 k$ immobilisés dans du stock lent. Agissez ici en premier.',
+  'Show dead-stock list': 'Afficher la liste du stock dormant',
+  'Top references by capital at risk:': 'Références prioritaires par capital à risque :',
+  'Filter by family, margin, months of stock…': 'Filtrer par famille, marge, mois de stock...',
+  Filter: 'Filtrer',
+  Export: 'Exporter',
+  'Runs offline': 'Fonctionne hors ligne',
+  Dashboard: 'Tableau de bord',
+  'Stock health': 'Santé du stock',
+  '962 SKUs · last 12 months · 13% dead stock': '962 SKU · 12 derniers mois · 13 % stock dormant',
+  'All SKUs': 'Tous les SKU',
+  'In stock': 'En stock',
+  'Slow movers': 'Rotation lente',
+  'Dead stock': 'Stock dormant',
+  'Neg. margin': 'Marge nég.',
+  'Sell-through by family': 'Écoulement par famille',
+  'Margin trend': 'Tendance marge',
+  'This year vs. last': 'Cette année vs précédente',
+  'This year': 'Cette année',
+  'Last year': 'Année précédente',
+  'Capital at risk': 'Capital à risque',
+  'By category': 'Par catégorie',
+  'You own this copy': 'Cette copie vous appartient',
+  'One-time licence': 'Licence unique',
+  Deployment: 'Déploiement',
+  'On your machines': 'Sur vos machines',
+  '100% local': '100 % local',
+  'Optimize your stock.': 'Optimisez votre stock.',
+  'Maximize your margins.': 'Maximisez vos marges.',
+  'VIA helps distributors measure the impact of price and stock decisions before money and space are lost.': 'VIA aide les distributeurs à mesurer l’impact des décisions de prix et de stock avant de perdre de l’argent et de l’espace.',
+  'Built for distributors managing thousands of SKUs.': 'Conçu pour les distributeurs qui gèrent des milliers de SKU.',
+  'See How VIA Works': 'Voir comment VIA fonctionne',
+  'Works from your existing data. Runs entirely on your infrastructure.': 'Fonctionne avec vos données existantes. Tourne entièrement sur votre infrastructure.',
+  'Auto parts': 'Pièces auto',
+  HVAC: 'CVC',
+  'Industrial supply': 'Fournitures industrielles',
+  Wholesale: 'Distribution B2B',
+  'Spare parts': 'Pièces de rechange',
+  'Building materials': 'Matériaux de construction',
+  'Multi-site networks': 'Réseaux multi-sites',
+  'Built for distribution and industrial SMEs': 'Conçu pour la distribution et les PME industrielles',
+  'Dead Stock': 'Stock dormant',
+  'Find cash trapped in slow-moving SKUs and decide what to push, freeze or liquidate.': 'Repérez le capital immobilisé dans les SKU lents et décidez quoi pousser, bloquer ou liquider.',
+  'See dead-stock scoring': 'Voir le scoring stock dormant',
+  'Replenishment Opportunities': 'Opportunités de réapprovisionnement',
+  'Know what to order, when to order, and what should wait.': 'Sachez quoi commander, quand commander et ce qui peut attendre.',
+  'See replenishment alerts': 'Voir les alertes de réapprovisionnement',
+  'Margin Erosion': 'Érosion des marges',
+  'Find where profit is leaking and which price moves protect margin.': 'Trouvez où la marge fuit et quelles actions prix la protègent.',
+  'See margin analysis': 'Voir l’analyse des marges',
+  'Year-over-Year Sales': 'Ventes année sur année',
+  'Spot demand shifts before they hurt stock and margin.': 'Repérez les changements de demande avant qu’ils n’affectent stock et marge.',
+  'See sales comparison': 'Voir la comparaison des ventes',
+  'Client Performance': 'Performance client',
+  'See which customers protect margin and which ones drain it.': 'Voyez quels clients protègent la marge et lesquels la dégradent.',
+  'See client analysis': 'Voir l’analyse clients',
+  'Substitutes & Cross-Analysis': 'Substituts et analyses croisées',
+  'See how product links affect stock, pricing and basket margin.': 'Voyez comment les liens produits affectent le stock, les prix et la marge panier.',
+  'See the full picture': 'Voir la vue complète',
+  'How it works': 'Comment ça marche',
+  'Less excess stock.': 'Moins de surstock.',
+  'More margin.': 'Plus de marge.',
+  'VIA shows which stock and pricing decisions protect space, cash and margin.': 'VIA montre quelles décisions de stock et de prix protègent l’espace, la trésorerie et la marge.',
+  'Explore the analyses': 'Explorer les analyses',
+  'Why distributors choose VIA': 'Pourquoi les distributeurs choisissent VIA',
+  'Measure the full impact before changing stock or prices.': 'Mesurez l’impact complet avant de changer le stock ou les prix.',
+  'Margin & sales by family': 'Marge et ventes par famille',
+  'This year compared to the previous one': 'Cette année comparée à la précédente',
+  Family: 'Famille',
+  'Revenue ($)': 'CA ($)',
+  YoY: 'A/A',
+  'Margin %': 'Marge %',
+  'Margin Δ': 'Variation marge',
+  Compressors: 'Compresseurs',
+  'Air filters': 'Filtres à air',
+  Refrigerant: 'Réfrigérant',
+  'Fan motors': 'Moteurs ventilateurs',
+  Thermostats: 'Thermostats',
+  Valves: 'Vannes',
+  Ducting: 'Conduits',
+  Overall: 'Total',
+  'Made for large catalogs, complex prices and thousands of SKU decisions.': 'Pensé pour les grands catalogues, les prix complexes et des milliers de décisions SKU.',
+  'Yours, outright': 'À vous, entièrement',
+  'Install it on your machines and keep control of your data.': 'Installez-le sur vos machines et gardez le contrôle de vos données.',
+  'Runs fully offline': 'Fonctionne entièrement hors ligne',
+  'No API, no network calls, no telemetry.': 'Aucune API, aucun appel réseau, aucune télémétrie.',
+  'Built around your rules': 'Construit autour de vos règles',
+  'Thresholds and analyses fit your catalog and pricing logic.': 'Les seuils et analyses s’adaptent à votre catalogue et à votre logique tarifaire.',
+  'Sealed shut by design.': 'Verrouillé par conception.',
+  'Air-gapped by default.': 'Isolé du réseau par défaut.',
+  'No API. No outbound calls. No data leaving your network.': 'Aucune API. Aucun appel sortant. Aucune donnée ne quitte votre réseau.',
+  'Read the security dossier': 'Lire le dossier sécurité',
+  'No way out': 'Aucune sortie',
+  'No API, no outbound network calls, no telemetry. The software simply has no channel to send your data anywhere.': 'Aucune API, aucun appel réseau sortant, aucune télémétrie. Le logiciel n’a tout simplement aucun canal pour envoyer vos données.',
+  'You own it': 'Vous le possédez',
+  'Bought once, installed on your machines, fully yours. No cloud, no remote access — not even from us.': 'Acheté une fois, installé sur vos machines, entièrement à vous. Pas de cloud, pas d’accès distant, même pas de notre part.',
+  'Verified in the code': 'Vérifié dans le code',
+  'Zero API keys, all file reads local, no analytics libraries. Confirmed line by line — and auditable by your own IT.': 'Zéro clé API, lectures de fichiers locales, aucune librairie analytics. Confirmé ligne par ligne et auditable par votre IT.',
+  'Your perimeter': 'Votre périmètre',
+  'VIA fits inside your existing security perimeter without widening it. Nothing new is exposed to the network.': 'VIA reste dans votre périmètre de sécurité existant sans l’élargir. Rien de nouveau n’est exposé au réseau.',
+  'VIA helps AutoDistribution France track stock, customer growth and margin from business data.': 'VIA aide AutoDistribution France à suivre le stock, la croissance client et la marge à partir des données métier.',
+  'Auto parts distribution': 'Distribution de pièces auto',
+  Stock: 'Stock',
+  'at risk': 'à risque',
+  Margin: 'Marge',
+  'by SKU': 'par SKU',
+  'data leaving the network': 'donnée ne quitte le réseau',
+  'Talk to us': 'Nous contacter',
+  'Support, the way an': 'Un support adapté à un',
+  'offline product needs it': 'produit hors ligne',
+  'Offline software needs direct support. Here is how it works.': 'Un logiciel hors ligne demande un support direct. Voici comment cela fonctionne.',
+  'A year of hyper-care': 'Un an d’hyper-care',
+  'Fixes and adjustments included after go-live.': 'Corrections et ajustements inclus après la mise en production.',
+  'See how support works': 'Voir le support',
+  'You report, we fix': 'Vous signalez, nous corrigeons',
+  'No telemetry. You call us, we patch it.': 'Pas de télémétrie. Vous nous contactez, nous corrigeons.',
+  'Tailored to your rules': 'Adapté à vos règles',
+  'Thresholds and scoring match your business.': 'Les seuils et le scoring correspondent à votre métier.',
+  'See deployment options': 'Voir les options de déploiement',
+  'Find hidden losses.': 'Trouvez les pertes cachées.',
+  'Act faster.': 'Agissez plus vite.',
+  'See the security model': 'Voir le modèle sécurité',
+  'Book a VIA demo': 'Réserver une démo VIA',
+  'Hi there!': 'Bonjour !',
+  'Want to see VIA on your own data?': 'Vous voulez voir VIA sur vos propres données ?',
+  Thanks: 'Merci !',
+  "We'll be in touch shortly to set up your demo.": 'Nous vous recontacterons rapidement pour organiser votre démo.',
+  'Your name': 'Votre nom',
+  'Work email': 'Email professionnel',
+  Sending: 'Envoi',
+  'Sending…': 'Envoi...',
+  'Oops — try again or email contact@viahq.ai': 'Oups, réessayez ou écrivez à contact@viahq.ai',
+  'Book a demo': 'Réserver une démo',
+  'Back to overview': 'Retour à la vue d’ensemble',
+  '‹ Back to overview': '‹ Retour à la vue d’ensemble',
+  'Product · Sales Analysis': 'Produit · Analyse des ventes',
+  'See what sold —': 'Voyez ce qui s’est vendu —',
+  'and what should have sold': 'et ce qui aurait dû se vendre',
+  'Find missing sales, declining categories and hidden demand gaps.': 'Identifiez les ventes manquées, les catégories en baisse et les écarts de demande cachés.',
+  'Revenue YoY': 'CA année sur année',
+  Live: 'Live',
+  'What it does': 'Ce que ça fait',
+  'Sales explained clearly': 'Les ventes expliquées clairement',
+  'VIA compares actual performance with expected demand.': 'VIA compare la performance réelle à la demande attendue.',
+  'Year over year': 'Année sur année',
+  'Volume and revenue, side by side': 'Volume et chiffre d’affaires, côte à côte',
+  'Compare every SKU and family in units and revenue.': 'Comparez chaque SKU et famille en unités et en chiffre d’affaires.',
+  'Risers and fallers': 'Hausses et baisses',
+  'Missing-sales signals': 'Signaux de ventes manquées',
+  'Monthly trends': 'Tendances mensuelles',
+  'Top families by revenue': 'Top familles par chiffre d’affaires',
+  'Filtered view · 962 SKUs': 'Vue filtrée · 962 SKU',
+  Sortable: 'Triable',
+  'Strategic view': 'Vue stratégique',
+  'The four-quadrant map of your catalog': 'La matrice à quatre quadrants de votre catalogue',
+  'See which SKUs to push, protect, reprice or retire.': 'Voyez quels SKU pousser, protéger, repricer ou retirer.',
+  'Volume × Margin': 'Volume × marge',
+  'Each dot is a reference': 'Chaque point est une référence',
+  '4 quadrants': '4 quadrants',
+  Volume: 'Volume',
+  'Early warning': 'Alerte précoce',
+  'Spot declines before they become dead stock': 'Repérez les baisses avant qu’elles ne deviennent du stock dormant',
+  'Catch weak demand before it becomes overstock.': 'Détectez la demande faible avant qu’elle ne devienne du surstock.',
+  Sparkline: 'Tendance',
+  'Monthly revenue': 'CA mensuel',
+  'The gain': 'Le gain',
+  'Find the missed sale.': 'Trouvez la vente manquée.',
+  'See where expected demand did not happen, and what it may cost.': 'Voyez où la demande attendue n’a pas eu lieu et ce que cela peut coûter.',
+  'Expected vs actual': 'Attendu vs réel',
+  'find hidden gaps': 'trouver les écarts cachés',
+  'ranked fast': 'classés rapidement',
+  'Action first': 'Action d’abord',
+  'push, protect, reprice or retire': 'pousser, protéger, repricer ou retirer',
+  'Everything, your way': 'Tout, à votre façon',
+  'Tuned to your business, in real time': 'Adapté à votre métier, en temps réel',
+  "Every threshold, filter and export reflects exactly what's on your screen — and recalculates the instant you move a slider.": 'Chaque seuil, filtre et export reflète exactement ce qui est à l’écran et se recalcule dès que vous bougez un curseur.',
+  'Tunable thresholds': 'Seuils ajustables',
+  'Set what counts as overstock, urgent or eroding. Every KPI and table updates live.': 'Définissez ce qui compte comme surstock, urgent ou en érosion. Chaque KPI et tableau se met à jour en direct.',
+  'Cascading filters': 'Filtres en cascade',
+  'Drill Category → Family → Brand, with live counts at every level.': 'Descendez Catégorie → Famille → Marque, avec les volumes en direct à chaque niveau.',
+  Category: 'Catégorie',
+  Brand: 'Marque',
+  'One-click Excel export': 'Export Excel en un clic',
+  'Export the exact filtered view — thresholds, filters and all — back to .xlsx.': 'Exportez la vue filtrée exacte, seuils et filtres inclus, vers .xlsx.',
+  'Export current view': 'Exporter la vue actuelle',
+  'Product · Margin Analysis': 'Produit · Analyse des marges',
+  'Protect margin': 'Protégez la marge',
+  'with the full picture': 'avec la vue complète',
+  'Find margin leaks and price decisions that improve total profit.': 'Identifiez les fuites de marge et les décisions prix qui améliorent le profit total.',
+  'Margin at risk this year': 'Marge à risque cette année',
+  'Know where profit is leaking': 'Sachez où le profit fuit',
+  'VIA shows the margin drift and its financial impact.': 'VIA montre la dérive de marge et son impact financier.',
+  'SKU level': 'Niveau SKU',
+  'Margin drift, reference by reference': 'Dérive de marge, référence par référence',
+  'Rank every SKU by margin change and financial impact.': 'Classez chaque SKU par variation de marge et impact financier.',
+  'Euro impact': 'Impact financier',
+  'Risk buckets': 'Niveaux de risque',
+  'Product and family drilldown': 'Drilldown produit et famille',
+  'Biggest margin movers': 'Plus fortes variations de marge',
+  'Worst first': 'Les pires en premier',
+  Diagnosis: 'Diagnostic',
+  'Gradual, sudden, or seasonal?': 'Progressif, soudain ou saisonnier ?',
+  'See if the issue is gradual, sudden or seasonal.': 'Voyez si le problème est progressif, soudain ou saisonnier.',
+  'Monthly margin %': 'Marge mensuelle %',
+  'Product · Inventory': 'Produit · Inventaire',
+  'Reduce excess stock': 'Réduire le surstock',
+  'without cutting blindly': 'sans couper à l’aveugle',
+  'Find slow-moving stock, capital at risk and the inventory actions that free space safely.': 'Identifiez le stock lent, le capital à risque et les actions inventaire qui libèrent de l’espace.',
+  'Product · Customer Performance': 'Produit · Performance client',
+  'Know which customers': 'Sachez quels clients',
+  'protect your margin': 'protègent votre marge',
+  'Understand revenue, mix and margin by customer before changing price or stock.': 'Comprenez le CA, le mix et la marge par client avant de changer prix ou stock.',
+  'Security · On-premise': 'Sécurité · Sur site',
+  'Installed on your machines.': 'Installé sur vos machines.',
+  'No data leaves.': 'Aucune donnée ne sort.',
+  'VIA can run fully inside your perimeter: no API, no outbound calls, no telemetry and no remote access.': 'VIA peut fonctionner entièrement dans votre périmètre : aucune API, aucun appel sortant, aucune télémétrie et aucun accès distant.',
+  'Security · SaaS option': 'Sécurité · Option SaaS',
+  'VIA, hosted for you.': 'VIA, hébergé pour vous.',
+  'Secure by default.': 'Sécurisé par défaut.',
+  'Prefer zero maintenance? VIA can run as a managed service — the same seven analyses, with hosting, updates and security handled for you.': 'Vous préférez zéro maintenance ? VIA peut fonctionner en service géré : les mêmes sept analyses, avec hébergement, mises à jour et sécurité pris en charge.',
+  Pricing: 'Tarifs',
+  'Pricing depends': 'Le tarif dépend',
+  'on your setup.': 'de votre configuration.',
+  'Tell us what you need through the form. We will come back with the right model and a clear quote.': 'Expliquez vos besoins via le formulaire. Nous reviendrons avec le bon modèle et une proposition claire.',
+  'Contact us': 'Contactez-nous',
+  'quote based on your setup': 'proposition basée sur votre contexte',
+  'Book a demo': 'Réserver une démo',
+  'See VIA on': 'Voyez VIA sur',
+  'your own data': 'vos propres données',
+  'Tell us about your stock, margins and priorities. We will prepare the right demo and quote.': 'Parlez-nous de votre stock, de vos marges et de vos priorités. Nous préparerons la bonne démo et la bonne proposition.',
+  'A demo focused on your stock and margins': 'Une démo centrée sur votre stock et vos marges',
+  "On-premise or SaaS — we'll advise": 'Sur site ou SaaS : nous vous conseillerons',
+  'A clear quote after the form': 'Une proposition claire après le formulaire',
+  Name: 'Nom',
+  Company: 'Entreprise',
+  Role: 'Rôle',
+  'Interested in': 'Solution recherchée',
+  'Choose a model…': 'Choisissez un modèle...',
+  'On-premise (air-gapped)': 'Sur site (isolé du réseau)',
+  'SaaS (managed)': 'SaaS (géré)',
+  'Not sure yet': 'Pas encore sûr',
+  'Anything we should know?': 'Quelque chose à savoir ?',
+  'Request a demo': 'Demander une démo',
+  'Something went wrong — please email contact@viahq.ai instead.': 'Une erreur est survenue. Écrivez plutôt à contact@viahq.ai.',
+  'Or email us directly at': 'Ou écrivez-nous directement à',
+  'Thanks — message sent.': 'Merci, message envoyé.',
+  'Send another': 'Envoyer un autre message',
+}
+
+function translateText(value, lang) {
+  if (lang !== 'fr' || !value) return value
+  const direct = frText[value]
+  if (direct) return direct
+  const trimmed = value.trim()
+  if (!trimmed || !frText[trimmed]) return value
+  const leading = value.match(/^\s*/)?.[0] || ''
+  const trailing = value.match(/\s*$/)?.[0] || ''
+  return `${leading}${frText[trimmed]}${trailing}`
+}
+
+function useFrenchDomTranslation(lang, route) {
+  useLayoutEffect(() => {
+    if (lang !== 'fr') return
+    const root = document.getElementById('root')
+    if (!root) return
+
+    const applyAll = () => {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+      const nodes = []
+      while (walker.nextNode()) nodes.push(walker.currentNode)
+      nodes.forEach((node) => {
+        node.nodeValue = translateText(node.nodeValue, lang)
+      })
+
+      root.querySelectorAll('[placeholder], [aria-label], [title]').forEach((el) => {
+        for (const attr of ['placeholder', 'aria-label', 'title']) {
+          if (el.hasAttribute(attr)) el.setAttribute(attr, translateText(el.getAttribute(attr), lang))
+        }
+      })
+
+      root.querySelectorAll('a[href^="#/"]').forEach((a) => {
+        a.setAttribute('href', localizeHref(a.getAttribute('href'), lang))
+      })
+    }
+
+    applyAll()
+    const observer = new MutationObserver(applyAll)
+    observer.observe(root, { childList: true, subtree: true })
+    return () => observer.disconnect()
+  }, [lang, route])
+}
+
 /* ─── Hash router ─── */
 function useRoute() {
   const parse = () => {
     const m = (window.location.hash || '').match(/^#\/(.+)$/)
-    return m ? m[1].replace(/\/$/, '') : 'home'
+    const raw = m ? m[1].replace(/\/$/, '') : 'home'
+    if (raw === 'fr') return { lang: 'fr', route: 'home' }
+    if (raw.startsWith('fr/')) {
+      const frRoute = raw.slice(3) || 'home'
+      return { lang: 'fr', route: FR_ROUTE_TO_ROUTE[frRoute] || frRoute }
+    }
+    return { lang: 'en', route: raw }
   }
   const [route, setRoute] = useState(parse)
   useEffect(() => {
@@ -32,7 +416,7 @@ function useRoute() {
 const navItems = [
   { label: 'Product',  href: '#/sales',             menu: 'product'  },
   { label: 'Security', href: '#/security/on-prem',  menu: 'security' },
-  { label: 'Pricing',  href: '#/pricing' },
+  { label: 'Demo',     href: '#/contact' },
 ]
 
 const productTiles = [
@@ -263,7 +647,7 @@ function AnnouncementBar() {
 }
 
 /* ─── Header ─── */
-function Header({ route }) {
+function Header({ route, lang }) {
   const [openMenu,   setOpenMenu]   = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const closeTimer = useRef(null)
@@ -274,18 +658,18 @@ function Header({ route }) {
   const isActive = (menu) => {
     if (menu === 'product')  return ['sales', 'margin', 'inventory', 'customers'].includes(route)
     if (menu === 'security') return route.startsWith('security/')
-    return route === 'pricing'
+    return route === 'contact'
   }
 
   return (
     <header className="site-header" onMouseLeave={close}>
-      <a className="brand" href="#/" aria-label="VIA home" onClick={() => setMobileOpen(false)}>
+      <a className="brand" href={localizePath('home', lang)} aria-label="VIA home" onClick={() => setMobileOpen(false)}>
         <img className="brand-logo" src="/VIA-4.png" alt="VIA" />
       </a>
       <nav className="nav-links" aria-label="Primary navigation">
         {navItems.map(({ label, href, menu }) => (
           <a
-            href={href} key={label}
+            href={localizeHref(href, lang)} key={label}
             className={isActive(menu || label.toLowerCase()) ? 'active' : ''}
             onMouseEnter={() => (menu ? open(menu) : close())}
           >
@@ -297,9 +681,11 @@ function Header({ route }) {
         ))}
       </nav>
       <div className="nav-actions">
-        <a className="login" href="#/pricing">Pricing</a>
-        <a className="pill subtle" href="#/contact">Contact <ArrowRight size={13} /></a>
-        <a className="pill dark" href="#/contact">Book a Demo <ArrowRight size={13} /></a>
+        <a className="lang-toggle" href={lang === 'fr' ? localizePath(route, 'en') : localizePath(route, 'fr')}>
+          {lang === 'fr' ? 'EN' : 'FR'}
+        </a>
+        <a className="pill subtle" href={localizePath('contact', lang)}>Contact <ArrowRight size={13} /></a>
+        <a className="pill dark" href={localizePath('contact', lang)}>Book a Demo <ArrowRight size={13} /></a>
         <button
           className="mobile-menu-btn"
           onClick={() => setMobileOpen(o => !o)}
@@ -313,18 +699,18 @@ function Header({ route }) {
       {mobileOpen && (
         <div className="mobile-nav-panel">
           {navItems.map(({ label, href }) => (
-            <a key={label} href={href} className="mnav-link" onClick={() => setMobileOpen(false)}>
+            <a key={label} href={localizeHref(href, lang)} className="mnav-link" onClick={() => setMobileOpen(false)}>
               {label}
             </a>
           ))}
           <div className="mnav-ctas">
-            <a className="pill dark" href="#/contact" onClick={() => setMobileOpen(false)}>
+            <a className="pill dark" href={localizePath('contact', lang)} onClick={() => setMobileOpen(false)}>
               Book a Demo <ArrowRight size={14} />
             </a>
-            <a className="pill subtle" href="#/pricing" onClick={() => setMobileOpen(false)}>
-              Pricing
+            <a className="pill subtle" href={lang === 'fr' ? localizePath(route, 'en') : localizePath(route, 'fr')} onClick={() => setMobileOpen(false)}>
+              {lang === 'fr' ? 'English' : 'Français'}
             </a>
-            <a className="pill subtle" href="#/security/on-prem" onClick={() => setMobileOpen(false)}>
+            <a className="pill subtle" href={localizePath('security/on-prem', lang)} onClick={() => setMobileOpen(false)}>
               Security
             </a>
           </div>
@@ -990,10 +1376,17 @@ function LoadingScreen() {
 }
 
 export default function App() {
-  const route = useRoute()
+  const { route, lang } = useRoute()
   const [popupOpen, setPopupOpen] = useState(false)
   const [loading, setLoading] = useState(true)
-  const Page = ROUTES[route]
+  const Page = route === 'home' ? null : ROUTES[route]
+
+  useFrenchDomTranslation(lang, route)
+
+  useEffect(() => {
+    if (route !== 'pricing') return
+    window.location.replace(localizePath('contact', lang))
+  }, [route, lang])
 
   useEffect(() => {
     const timer = window.setTimeout(() => setLoading(false), 850)
@@ -1007,15 +1400,15 @@ export default function App() {
       </AnimatePresence>
       <div className="top-chrome">
         <AnnouncementBar />
-        <Header route={route} />
+        <Header route={route} lang={lang} />
       </div>
       {Page ? (
-        <main key={route}>
+        <main key={`${lang}-${route}`}>
           <Page />
           <FooterCta />
         </main>
       ) : (
-        <HomePage />
+        <HomePage key={lang} />
       )}
       {!popupOpen && <AssistantBubble />}
       <DemoPopup route={route} onOpen={() => setPopupOpen(true)} onClose={() => setPopupOpen(false)} />
