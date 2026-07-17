@@ -128,14 +128,76 @@
 
   <script>
     // Clé d'accès → clé AES-256 via PBKDF2 (250 000 itérations, sel fixe).
-    // La clé d'accès n'est jamais stockée ; la clé dérivée déchiffre les données de la démo.
+    // La clé d'accès brute n'est jamais stockée ; seule la clé dérivée est gardée localement.
     const SALT = new Uint8Array([14,19,47,130,101,206,93,37,116,17,74,190,160,134,139,11]);
     const ITER = 250000;
     const FORMSPREE = "https://formspree.io/f/mwvwnalv";
+    const DEMO_URL = './demo/';
+    const REMEMBER_KEY = 'via_demo_descair_access';
+    const PROFILE_KEY = 'via_demo_descair_profile';
+    const REMEMBER_MS = 90 * 24 * 60 * 60 * 1000;
 
     const form = document.getElementById('gate');
     const errEl = document.getElementById('err');
     const btn = document.getElementById('btn');
+
+    function readJson(key){
+      try { return JSON.parse(localStorage.getItem(key) || 'null'); }
+      catch (_) {
+        try { localStorage.removeItem(key); } catch (_) {}
+        return null;
+      }
+    }
+
+    function readRememberedAccess(){
+      const saved = readJson(REMEMBER_KEY);
+      if (!saved || saved.version !== 1 || !saved.keyB64 || !saved.expiresAt) return null;
+      if (Date.now() > saved.expiresAt){
+        try { localStorage.removeItem(REMEMBER_KEY); } catch (_) {}
+        return null;
+      }
+      return saved;
+    }
+
+    function rememberSession(keyB64){
+      sessionStorage.setItem('via_key', keyB64);
+      sessionStorage.setItem('via_gate_ok', '1');
+    }
+
+    function openDemo(keyB64){
+      rememberSession(keyB64);
+      location.assign(DEMO_URL);
+    }
+
+    function rememberAccess(keyB64, profile){
+      try {
+        const now = Date.now();
+        localStorage.setItem(REMEMBER_KEY, JSON.stringify({
+          version: 1,
+          keyB64,
+          profile,
+          savedAt: now,
+          expiresAt: now + REMEMBER_MS
+        }));
+        localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+      } catch (_) { /* stockage local indisponible : accès valable pour la session seulement */ }
+    }
+
+    function prefillProfile(){
+      const profile = readJson(PROFILE_KEY);
+      if (!profile) return;
+      ['prenom', 'nom', 'email', 'entreprise'].forEach((field) => {
+        if (profile[field]) document.getElementById(field).value = profile[field];
+      });
+    }
+
+    const remembered = readRememberedAccess();
+    if (remembered) {
+      try { openDemo(remembered.keyB64); }
+      catch (_) { prefillProfile(); }
+    } else {
+      prefillProfile();
+    }
 
     // Pop-up consentement
     const consentModal = document.getElementById('consentModal');
@@ -186,6 +248,7 @@
       // Clé d'accès correcte → exporter la clé (pour déchiffrer la démo), notifier VIA, ouvrir.
       const raw = await crypto.subtle.exportKey('raw', key);
       const keyB64 = btoa(String.fromCharCode(...new Uint8Array(raw)));
+      const profile = { prenom, nom, email, entreprise };
       try {
         await fetch(FORMSPREE, {
           method: 'POST',
@@ -211,9 +274,8 @@
         });
       } catch (_) { /* best-effort : on ouvre quand même */ }
 
-      sessionStorage.setItem('via_key', keyB64);
-      sessionStorage.setItem('via_gate_ok', '1');
-      location.assign('./demo/');
+      rememberAccess(keyB64, profile);
+      openDemo(keyB64);
     });
   </script>
 </body>

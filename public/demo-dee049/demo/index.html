@@ -2,7 +2,40 @@
 <html lang="en">
   <head>
     <base href="/demo-dee049/demo/" />
-    <script>if(!sessionStorage.getItem("via_key"))location.replace("../");</script>
+    <script>
+      (function(){
+        var rememberKey = "via_demo_descair_access";
+
+        function readRememberedAccess(){
+          try {
+            var saved = JSON.parse(localStorage.getItem(rememberKey) || "null");
+            if (!saved || saved.version !== 1 || !saved.keyB64 || !saved.expiresAt) return null;
+            if (Date.now() > saved.expiresAt){
+              localStorage.removeItem(rememberKey);
+              return null;
+            }
+            return saved;
+          } catch (e) {
+            try { localStorage.removeItem(rememberKey); } catch (_) {}
+            return null;
+          }
+        }
+
+        try {
+          if (!sessionStorage.getItem("via_key")) {
+            var remembered = readRememberedAccess();
+            if (remembered) {
+              sessionStorage.setItem("via_key", remembered.keyB64);
+              sessionStorage.setItem("via_gate_ok", "1");
+            }
+          }
+
+          if (!sessionStorage.getItem("via_key")) location.replace("../");
+        } catch (e) {
+          location.replace("../");
+        }
+      })();
+    </script>
     <script>
       try {
         if (localStorage.getItem("via_dark") === "true")
